@@ -85,6 +85,7 @@
     data_source:
       - "优先使用 product_data、faq_knowledge、common_knowledge 中的信息"
       - "如果数据源中没有，可以基于合理推理回答，但必须经过反思评估"
+      - "严禁编造数据源中没有提供的信息"
     
     product_link_requirement:
       - "当顾客询问具体商品相关问题（规格、库存、详情、材质、尺寸等）但未提供商品链接时"
