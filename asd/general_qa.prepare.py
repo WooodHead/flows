@@ -39,6 +39,7 @@ def resolve_taobao_short_link(url):
 def extract_ids_from_dialogue(dialogue_data):
     """从对话中提取商品ID"""
     ids = []
+    id_map = {}
     for message in dialogue_data:
         if not message or not isinstance(message, dict):
             continue
@@ -58,13 +59,16 @@ def extract_ids_from_dialogue(dialogue_data):
         short_links = re.findall(r'https?://e\.tb\.cn/[A-Za-z0-9._]+', combined_text)
         for link in short_links:
             resolved_id = resolve_taobao_short_link(link)
-            if resolved_id and resolved_id not in ids:
-                ids.append(resolved_id)
+            if resolved_id:
+                if resolved_id not in ids:
+                    ids.append(resolved_id)
+                if resolved_id not in id_map:
+                    id_map[resolved_id] = link
                 
         for item_id in re.findall(r'id=(\d+)', combined_text):
             if item_id and item_id not in ids:
                 ids.append(item_id)
-    return ids
+    return ids, id_map
 
 def extract_product_codes_from_dialogue(dialogue_data):
     """
@@ -276,7 +280,8 @@ async def process_product_data(database_id, products_by_code):
             "卖点": product.get("卖点", ""),
             "补充知识": product.get("补充知识", ""),
             "sku": sku_map.get(item_id, []),
-            "匹配方式": "货号模糊匹配"  # 标记匹配方式
+            "匹配方式": "货号模糊匹配",  # 标记匹配方式
+            "short_link": ""  # 初始化短链字段
         }
         
         for field in ["商品详情页识别结果", "轮播图识别结果"]:
@@ -300,10 +305,6 @@ async def fetch_behavior(database_id, top_situations):
     """
     根据 top_situations 查询场景策略，结果按 top_situations 顺序排序
     """
-    print(f"[fetch_behavior] 开始执行")
-    print(f"[fetch_behavior] database_id: {database_id}")
-    print(f"[fetch_behavior] top_situations: {top_situations}")
-    print(f"[fetch_behavior] top_situations类型: {type(top_situations)}, 长度: {len(top_situations) if top_situations else 0}")
     
     if not top_situations:
         print(f"[fetch_behavior] top_situations为空，返回空列表")
@@ -313,34 +314,27 @@ async def fetch_behavior(database_id, top_situations):
         # 构建 IN 查询条件
         situations_str = "','".join(s.replace("'", "''") for s in top_situations)
         sql = f"SELECT situation, action FROM 场景策略 WHERE situation IN ('{situations_str}') LIMIT 50"
-        print(f"[fetch_behavior] 执行SQL: {sql}")
         
         res = await better_yeah.database.execute_database(
             base_id=database_id,
             executable_sql=sql
         )
         
-        print(f"[fetch_behavior] 查询结果 success: {res.success if res else 'None'}")
-        print(f"[fetch_behavior] 查询结果 data: {res.data if res else 'None'}")
         
         result = res.data.data if res.success and hasattr(res.data, 'data') else []
-        print(f"[fetch_behavior] 解析后原始结果数量: {len(result)}")
-        print(f"[fetch_behavior] 解析后原始结果: {result}")
         
         # 按照 top_situations 的顺序排序
         situation_order = {s: i for i, s in enumerate(top_situations)}
-        print(f"[fetch_behavior] 排序映射: {situation_order}")
         
         result.sort(key=lambda x: situation_order.get(x.get("situation", ""), len(top_situations)))
-        print(f"[fetch_behavior] 排序后结果: {result}")
         
-        print(f"[fetch_behavior] 最终返回 {len(result)} 条行为策略")
         return result
     except Exception as e:
         print(f"[fetch_behavior] 异常: {type(e).__name__}: {e}")
         import traceback
         print(f"[fetch_behavior] 堆栈: {traceback.format_exc()}")
         return []
+
 
 def fetch_knowledge_base_single(auth, kb_config, partition_id, query_content, msg_index):
     """单次知识库查询"""
@@ -439,7 +433,7 @@ async def main():
     start_time = datetime.now()
     
     # 提取商品ID和货号
-    item_ids = extract_ids_from_dialogue(dialogue)
+    item_ids, id_map = extract_ids_from_dialogue(dialogue)
     product_codes = extract_product_codes_from_dialogue(dialogue)
     
     print(f"[提取] 商品ID:{item_ids} | 货号:{product_codes}")
@@ -478,7 +472,15 @@ async def main():
     product_sku_result = []
     
     if item_ids and len(results) > 3:
-        product_sku_result.extend(results[3])
+        products_from_ids = results[3]
+        # 注入 short_link
+        print(f"[调试] ID映射: {id_map}")
+        for p in products_from_ids:
+            p["short_link"] = "" # 初始化短链字段
+            pid = p.get("商品id")
+            if pid and str(pid) in id_map:
+                 p["short_link"] = id_map[str(pid)]
+        product_sku_result.extend(products_from_ids)
     
     if product_codes:
         # 如果有货号查询结果
