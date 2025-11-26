@@ -17,6 +17,25 @@ def get_current_datetime():
     weekdays = ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
     return f"{now.year}年{now.month}月{now.day}日（{weekdays[now.weekday()]}） {now.hour:02d}:{now.minute:02d}:{now.second:02d}"
 
+def resolve_taobao_short_link(url):
+    """解析淘宝短链获取商品ID"""
+    try:
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+        }
+        resp = requests.get(url, headers=headers, timeout=5)
+        if resp.status_code == 200:
+            html = resp.text
+            match = re.search(r"var\s+url\s*=\s*['\"]([^'\"]+)['\"]", html)
+            if match:
+                long_url = match.group(1)
+                id_match = re.search(r'[?&]id=(\d+)', long_url)
+                if id_match:
+                    return id_match.group(1)
+    except Exception as e:
+        print(f"[警告] 解析短链失败 {url}: {e}")
+    return None
+
 def extract_ids_from_dialogue(dialogue_data):
     """从对话中提取商品ID"""
     ids = []
@@ -34,6 +53,14 @@ def extract_ids_from_dialogue(dialogue_data):
             combined_text = f"{content.get('text', '')} {content.get('url', '')}"
         else:
             continue
+            
+        # 提取短链并解析
+        short_links = re.findall(r'https?://e\.tb\.cn/[A-Za-z0-9._]+', combined_text)
+        for link in short_links:
+            resolved_id = resolve_taobao_short_link(link)
+            if resolved_id and resolved_id not in ids:
+                ids.append(resolved_id)
+                
         for item_id in re.findall(r'id=(\d+)', combined_text):
             if item_id and item_id not in ids:
                 ids.append(item_id)
@@ -399,7 +426,7 @@ async def main():
     
     # 并行执行所有查询任务
     tasks = [
-        fetch_behavior(database_id, top_situations),
+        fetch_behavior(database_id, event_two),
         asyncio.get_event_loop().run_in_executor(
             None, 
             fetch_knowledge_base_batch, 
