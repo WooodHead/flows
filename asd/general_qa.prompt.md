@@ -47,7 +47,7 @@
 <reply_strategy>
   description: "回复策略，用于指导回复方式，不可作为数据源。"
   content: "{{context.behavior}}"
-< reply_strategy >
+<reply_strategy>
 
 
 </system>
