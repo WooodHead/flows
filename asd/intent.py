@@ -171,14 +171,14 @@ async def query_tags():
             raise Exception(res.message)
         
         # 查询场景策略表
-        situation_sql = "SELECT 事件一级标签, 事件二级标签, situation FROM 场景策略表 LIMIT 500;"
+        situation_sql = "SELECT 事件一级标签, 事件二级标签, situation FROM 场景策略 LIMIT 500;"
         
         situation_res = await better_yeah.database.execute_database(
             base_id=database_id,
             executable_sql=situation_sql
         )
         
-        # 构建场景策略映射: {(事件一级标签, 事件二级标签): [situation1, situation2, ...]}
+        # 构建场景策略映射: {(事件一级, 事件二级): [situation1, situation2, ...]}
         situation_map = {}
         if situation_res.success:
             for row in situation_res.data.data:
@@ -213,10 +213,8 @@ async def query_tags():
                     item = {"名称": event_two}
                     if desc:
                         item["描述"] = desc
-                    # 添加场景策略 situations
-                    situations = situation_map.get((event_one, event_two), [])
-                    if situations:
-                        item["situations"] = situations
+                    # 添加场景策略 situations（总是添加该字段）
+                    item["situations"] = situation_map.get((event_one, event_two), [])
                     grouped[event_one].append(item)
         
         # 转换为最终格式
