@@ -269,13 +269,27 @@ async def process_product_data(database_id, products_by_code):
     
     return result
 
-async def fetch_behavior(database_id, event_two_value):
+async def fetch_behavior(database_id, top_situations):
+    """
+    根据 top_situations 查询场景策略，结果按 top_situations 顺序排序
+    """
+    if not top_situations:
+        return []
+    
     try:
+        # 构建 IN 查询条件
+        situations_str = "','".join(s.replace("'", "''") for s in top_situations)
+        
         res = await better_yeah.database.execute_database(
             base_id=database_id,
-            executable_sql=f"SELECT situation, action FROM 场景策略 WHERE 事件二级标签 = '{event_two_value}' LIMIT 50"
+            executable_sql=f"SELECT situation, action FROM 场景策略 WHERE situation IN ('{situations_str}') LIMIT 50"
         )
         result = res.data.data if res.success and hasattr(res.data, 'data') else []
+        
+        # 按照 top_situations 的顺序排序
+        situation_order = {s: i for i, s in enumerate(top_situations)}
+        result.sort(key=lambda x: situation_order.get(x.get("situation", ""), len(top_situations)))
+        
         print(f"[数据] 行为策略:{len(result)}")
         return result
     except:
@@ -385,7 +399,7 @@ async def main():
     
     # 并行执行所有查询任务
     tasks = [
-        fetch_behavior(database_id, event_two),
+        fetch_behavior(database_id, top_situations),
         asyncio.get_event_loop().run_in_executor(
             None, 
             fetch_knowledge_base_batch, 
