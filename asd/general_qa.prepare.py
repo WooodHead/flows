@@ -9,6 +9,30 @@ from concurrent.futures import ThreadPoolExecutor
 
 better_yeah = BetterYeah()
 
+DEFAULT_ACTION="""
+    data_source:
+      - "严禁编造信息或使用常识补充"
+
+    决策链:
+      第一步_检查商品问题:
+        - "问题涉及具体商品 + dialogue无链接且product_data为空 → 询问商品链接并跳过第二步"
+        - "问题涉及具体商品 + 有链接但product_data为空 → [TRANSFER]"
+        - "其他情况 → 进入第二步"
+
+      第二步_信息检索:
+        -  在 product_data、faq_knowledge、common_knowledge 中查找"
+	-  优先使用 product_data，其次使用faq_knowledge，最次使用 common_knowledge的内容回答"
+
+    check_list:
+      - "回复中每条信息是否能在数据源中找到原文？→ 必须"
+      - "是否编造了数据源中不存在的信息？→ 禁止"
+      - “引用 faq_knowledge 中的回答时，不要改变原文 → 必须”
+
+    transfer_trigger:
+      - "无法回答时 answer 字段直接输出：[TRANSFER]（仅此标记，不加任何其他文字）"
+      - "[TRANSFER] 是系统标记，不是给顾客的回复，禁止说'建议转人工'等话术"
+"""
+
 def generate_app_id():
     return re.sub(r'-', '', str(uuid.uuid4()))
 
@@ -327,6 +351,11 @@ async def fetch_behavior(database_id, top_situations):
         situation_order = {s: i for i, s in enumerate(top_situations)}
         
         result.sort(key=lambda x: situation_order.get(x.get("situation", ""), len(top_situations)))
+        
+        # 如果 action 为空，使用 DEFAULT_ACTION
+        for item in result:
+            if not item.get("action"):
+                item["action"] = DEFAULT_ACTION
         
         return result
     except Exception as e:
