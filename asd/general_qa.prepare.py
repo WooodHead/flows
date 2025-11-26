@@ -312,7 +312,7 @@ async def fetch_behavior(database_id, top_situations):
     try:
         # 构建 IN 查询条件
         situations_str = "','".join(s.replace("'", "''") for s in top_situations)
-        sql = f"SELECT situation, action FROM 场景策略_测试 WHERE situation IN ('{situations_str}') LIMIT 50"
+        sql = f"SELECT situation, action FROM 场景策略 WHERE situation IN ('{situations_str}') LIMIT 50"
         print(f"[fetch_behavior] 执行SQL: {sql}")
         
         res = await better_yeah.database.execute_database(
