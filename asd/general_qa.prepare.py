@@ -300,26 +300,46 @@ async def fetch_behavior(database_id, top_situations):
     """
     根据 top_situations 查询场景策略，结果按 top_situations 顺序排序
     """
+    print(f"[fetch_behavior] 开始执行")
+    print(f"[fetch_behavior] database_id: {database_id}")
+    print(f"[fetch_behavior] top_situations: {top_situations}")
+    print(f"[fetch_behavior] top_situations类型: {type(top_situations)}, 长度: {len(top_situations) if top_situations else 0}")
+    
     if not top_situations:
+        print(f"[fetch_behavior] top_situations为空，返回空列表")
         return []
     
     try:
         # 构建 IN 查询条件
         situations_str = "','".join(s.replace("'", "''") for s in top_situations)
+        sql = f"SELECT situation, action FROM 场景策略_测试 WHERE situation IN ('{situations_str}') LIMIT 50"
+        print(f"[fetch_behavior] 执行SQL: {sql}")
         
         res = await better_yeah.database.execute_database(
             base_id=database_id,
-            executable_sql=f"SELECT situation, action FROM 场景策略 WHERE situation IN ('{situations_str}') LIMIT 50"
+            executable_sql=sql
         )
+        
+        print(f"[fetch_behavior] 查询结果 success: {res.success if res else 'None'}")
+        print(f"[fetch_behavior] 查询结果 data: {res.data if res else 'None'}")
+        
         result = res.data.data if res.success and hasattr(res.data, 'data') else []
+        print(f"[fetch_behavior] 解析后原始结果数量: {len(result)}")
+        print(f"[fetch_behavior] 解析后原始结果: {result}")
         
         # 按照 top_situations 的顺序排序
         situation_order = {s: i for i, s in enumerate(top_situations)}
-        result.sort(key=lambda x: situation_order.get(x.get("situation", ""), len(top_situations)))
+        print(f"[fetch_behavior] 排序映射: {situation_order}")
         
-        print(f"[数据] 行为策略:{len(result)}")
+        result.sort(key=lambda x: situation_order.get(x.get("situation", ""), len(top_situations)))
+        print(f"[fetch_behavior] 排序后结果: {result}")
+        
+        print(f"[fetch_behavior] 最终返回 {len(result)} 条行为策略")
         return result
-    except:
+    except Exception as e:
+        print(f"[fetch_behavior] 异常: {type(e).__name__}: {e}")
+        import traceback
+        print(f"[fetch_behavior] 堆栈: {traceback.format_exc()}")
         return []
 
 def fetch_knowledge_base_single(auth, kb_config, partition_id, query_content, msg_index):
@@ -426,7 +446,7 @@ async def main():
     
     # 并行执行所有查询任务
     tasks = [
-        fetch_behavior(database_id, event_two),
+        fetch_behavior(database_id, top_situations),
         asyncio.get_event_loop().run_in_executor(
             None, 
             fetch_knowledge_base_batch, 
