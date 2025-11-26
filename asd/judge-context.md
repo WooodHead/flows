@@ -2,7 +2,7 @@
   <data_source>
     event_list:
       content: "{{preprocess.tags}}"
-      description: "事件分类列表，包含一级和二级分类"
+      description: "事件分类列表，包含一级和二级分类，二级分类下的 situations 是所有可能的顾客咨询场景"
   </data_source>
 
   <conversation>
