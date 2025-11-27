@@ -1,0 +1,38 @@
+{
+  "code": 200,
+  "success": true,
+  "message": "SUCCESS",
+  "data": {
+      "config_id": "e7812e8287ca4ba4930d00d68862ae56",
+      "robots": [
+          {
+              "equipment_information_id": "e8fb10da2b3140a49925ccfbc3073a9e",
+              "assistant_id": "客服19",
+              "channel": "qianniu",
+              "shop_id": "xigu-1127-1",
+              "bty_user_id": "10058",
+              "equipment_information": {
+                  "channel": "qianniu",
+                  "assistant_id": "客服19",
+                  "assistant_name": "客服19",
+                  "equipment_image": null
+              },
+              "workspace_id": "6527933d15a578689bb54afd",
+              "agent_mode": "auto_reply",
+              "robot_name": "Robot-客服19",
+              "created_at": "2025-11-27T21:17:44.490500",
+              "updated_at": "2025-11-27T21:17:51.924458",
+              "quality_inspection_config": {
+                  "enabled": false,
+                  "cron_schedule": "",
+                  "custom_requirement": ""
+              },
+              "cloud_desktop_id": null,
+              "cloud_desktop_name": null
+          }
+      ],
+      "total_count": 1
+  },
+  "request_id": "162e10357cf674a3fb4b430989049795",
+  "now_time": 1764249473
+}
