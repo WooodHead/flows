@@ -91,95 +91,6 @@ def extract_ids_from_dialogue(dialogue_data):
                 ids.append(item_id)
     return ids, id_map
 
-def extract_product_codes_from_dialogue(dialogue_data):
-    """
-    从对话中提取货号/款号(字母+数字组合)
-    支持格式: dw2415, ABC123, 845680, M123-456等
-    """
-    codes = []
-    
-    print(f"[调试] dialogue_data类型: {type(dialogue_data)}, 长度: {len(dialogue_data) if dialogue_data else 0}")
-    
-    for idx, message in enumerate(dialogue_data):
-        if not message or not isinstance(message, dict):
-            continue
-        
-        role = message.get("role")
-        if role not in ["user", "assistant"]:
-            continue
-            
-        content = message.get("content")
-        if not content:
-            continue
-        
-        # 提取文本
-        if isinstance(content, str):
-            text = content
-        elif isinstance(content, dict):
-            text = content.get('text', '')
-        else:
-            continue
-        
-        print(f"[调试] 消息{idx} role={role}, text={text[:50]}...")
-        
-        # 匹配货号模式: 
-        # - 至少3个字符
-        # - 包含字母或数字(可混合)
-        # - 可包含中划线/下划线
-        # 示例: dw2415, ABC123, 845680, M123-456, style_2024
-        # 注意: 不使用\b边界,因为中文环境下可能失效
-        matches = re.findall(r'([a-zA-Z0-9][-_a-zA-Z0-9]{2,})', text)
-        
-        print(f"[调试] 正则匹配到: {matches}")
-        
-        for code in matches:
-            # 过滤纯字母(可能是普通单词)
-            if not re.search(r'\d', code):
-                print(f"[调试] 过滤{code}: 纯字母")
-                continue
-            # 过滤纯数字且长度<4(可能是数量)
-            if code.isdigit() and len(code) < 4:
-                print(f"[调试] 过滤{code}: 数字太短")
-                continue
-            # 去重
-            if code not in codes:
-                print(f"[调试] ✅ 保留货号: {code}")
-                codes.append(code)
-    
-    return codes
-
-async def fetch_product_by_codes(database_id, product_codes):
-    """
-    根据货号模糊匹配商品
-    支持: dw2415, ABC123等
-    """
-    if not product_codes:
-        return []
-    
-    # 构建LIKE查询条件
-    like_conditions = " OR ".join([f"商品标题 LIKE '%{code}%'" for code in product_codes])
-    
-    try:
-        product_res = await better_yeah.database.execute_database(
-            base_id=database_id,
-            executable_sql=f"""
-                SELECT 商品id, 商品标题, 商品链接, 参数, 
-                       商品详情页识别结果, 轮播图识别结果, 卖点, 补充知识 
-                FROM 店铺商品目录 
-                WHERE {like_conditions}
-                LIMIT 50
-            """
-        )
-        products = product_res.data.data if product_res.success and hasattr(product_res.data, 'data') else []
-        
-        if products:
-            print(f"[数据] 货号匹配到商品:{len(products)}个")
-        
-        return products
-    except Exception as e:
-        print(f"[错误] 货号查询失败: {str(e)}")
-        return []
-
 async def fetch_product_and_sku(database_id, item_ids):
     """根据商品ID查询商品和SKU"""
     if not item_ids:
@@ -249,77 +160,6 @@ async def fetch_product_and_sku(database_id, item_ids):
         result.append(processed)
     
     print(f"[数据] 商品ID查询:{len(result)}个 SKU:{len(skus)}")
-    return result
-
-async def process_product_data(database_id, products_by_code):
-    """
-    处理货号查询到的商品,补充SKU信息
-    """
-    if not products_by_code:
-        return []
-    
-    # 提取所有商品ID
-    item_ids = [p.get("商品id") for p in products_by_code if p.get("商品id")]
-    
-    if not item_ids:
-        return []
-    
-    ids_str = "','".join(str(pid) for pid in item_ids)
-    
-    # 查询SKU
-    try:
-        sku_res = await better_yeah.database.execute_database(
-            base_id=database_id,
-            executable_sql=f"SELECT 商品id, sku, sku图识别结果 FROM sku参数表 WHERE 商品id IN ('{ids_str}') LIMIT 500"
-        )
-        skus = sku_res.data.data if sku_res.success and hasattr(sku_res.data, 'data') else []
-    except:
-        skus = []
-    
-    # 构建SKU映射
-    sku_map = {}
-    for sku in skus:
-        if isinstance(sku, dict) and sku.get("商品id"):
-            sku_map.setdefault(sku["商品id"], []).append({
-                "sku": sku.get("sku", ""),
-                "sku图识别结果": sku.get("sku图识别结果", "")
-            })
-    
-    # 处理商品数据
-    result = []
-    for product in products_by_code:
-        if not isinstance(product, dict):
-            continue
-        item_id = product.get("商品id", "")
-        processed = {
-            "商品id": item_id,
-            "商品标题": product.get("商品标题", ""),
-            "商品链接": product.get("商品链接", ""),
-            "参数": product.get("参数", ""),
-            "商品详情页识别结果": [],
-            "轮播图识别结果": [],
-            "卖点": product.get("卖点", ""),
-            "补充知识": product.get("补充知识", ""),
-            "sku": sku_map.get(item_id, []),
-            "匹配方式": "货号模糊匹配",  # 标记匹配方式
-            "short_link": ""  # 初始化短链字段
-        }
-        
-        for field in ["商品详情页识别结果", "轮播图识别结果"]:
-            raw = product.get(field, "")
-            if raw:
-                try:
-                    items = json.loads(raw) if isinstance(raw, str) else raw
-                    if isinstance(items, list):
-                        for item in items:
-                            if isinstance(item, dict):
-                                desc = {k: v for k, v in item.items() if k.startswith("image_desc")}
-                                if desc:
-                                    processed[field].append(desc)
-                except:
-                    pass
-        result.append(processed)
-    
     return result
 
 async def fetch_behavior(database_id, top_situations):
@@ -466,11 +306,10 @@ async def main():
     
     start_time = datetime.now()
     
-    # 提取商品ID和货号
+    # 提取商品ID
     item_ids, id_map = extract_ids_from_dialogue(dialogue)
-    product_codes = extract_product_codes_from_dialogue(dialogue)
     
-    print(f"[提取] 商品ID:{item_ids} | 货号:{product_codes}")
+    print(f"[提取] 商品ID:{item_ids}")
     
     # 并行执行所有查询任务
     tasks = [
@@ -490,9 +329,6 @@ async def main():
     # 添加商品查询任务
     if item_ids:
         tasks.append(fetch_product_and_sku(database_id, item_ids))
-    
-    if product_codes:
-        tasks.append(fetch_product_by_codes(database_id, product_codes))
     
     # 执行所有任务
     results = await asyncio.gather(*tasks)
@@ -516,33 +352,15 @@ async def main():
                  p["short_link"] = id_map[str(pid)]
         product_sku_result.extend(products_from_ids)
     
-    if product_codes:
-        # 如果有货号查询结果
-        code_result_idx = 4 if item_ids else 3
-        if len(results) > code_result_idx:
-            products_by_code = results[code_result_idx]
-            # 处理货号查询到的商品,补充SKU
-            processed = await process_product_data(database_id, products_by_code)
-            product_sku_result.extend(processed)
-    
-    # 去重商品(基于商品id)
-    seen_product_ids = set()
-    unique_products = []
-    for product in product_sku_result:
-        product_id = product.get("商品id")
-        if product_id and product_id not in seen_product_ids:
-            seen_product_ids.add(product_id)
-            unique_products.append(product)
-    
     # 处理知识库结果
     processed_common = [item.get("content", "") for item in common_result if isinstance(item, dict) and item.get("content")]
     processed_faq = [{"question": item.get("content", ""), "answer": item.get("extra_info", {})} for item in faq_result if isinstance(item, dict) and (item.get("content") or item.get("extra_info"))]
     
     elapsed = (datetime.now() - start_time).total_seconds()
-    print(f"[完成] 商品{len(unique_products)}个 | 策略{len(behavior_result)}条 | common{len(processed_common)}条 | faq{len(processed_faq)}条 | 总耗时{elapsed:.2f}秒")
+    print(f"[完成] 商品{len(product_sku_result)}个 | 策略{len(behavior_result)}条 | common{len(processed_common)}条 | faq{len(processed_faq)}条 | 总耗时{elapsed:.2f}秒")
     
     return {
-        "data": unique_products,
+        "data": product_sku_result,
         "behavior": behavior_result,
         "common": processed_common,
         "faq": processed_faq,
