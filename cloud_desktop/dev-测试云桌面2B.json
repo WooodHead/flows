@@ -1,0 +1,14 @@
+{
+  "id": 18,
+  "desktop_id": "aad6a6ab5543484aaf48929cf95e3e2b",
+  "register_token": "22c5998c4e4cdb9635e17c547b2b9eb797e1ceebe8ab50ece906c70c3e64702b",
+  "name": "测试云桌面2B",
+  "status": "busy",
+  "equipment_information_id": "7cb2ca4ffcca4919b02a0818b8ff7d9c",
+  "description": null,
+  "last_heartbeat": "2025-11-28 00:23:46.709019",
+  "created_at": "2025-10-06 15:46:45.82314",
+  "updated_at": "2025-11-28 00:23:47.995601",
+  "deleted": false,
+  "provider": "unknown"
+}
