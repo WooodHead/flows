@@ -1,0 +1,90 @@
+2025-11-27 21:29:24 }
+2025-11-27 21:29:24 [INFO] DeviceBindWindow::VerifyCodeAsync: 
+2025-11-27 21:29:24 [INFO] DeviceBindWindow::VerifyCodeAsync: 📋 配置详情（字段逐项）:
+2025-11-27 21:29:24 [INFO] DeviceBindWindow::VerifyCodeAsync:   ├─ WorkspaceId: 6527933d15a578689bb54afd
+2025-11-27 21:29:24 [INFO] DeviceBindWindow::VerifyCodeAsync:   ├─ AccessKey: ***已获取***
+2025-11-27 21:29:24 [INFO] DeviceBindWindow::VerifyCodeAsync:   ├─ BtyUserId: 10058
+2025-11-27 21:29:24 [INFO] DeviceBindWindow::VerifyCodeAsync:   ├─ AssistantId: 客服20
+2025-11-27 21:29:24 [INFO] DeviceBindWindow::VerifyCodeAsync:   ├─ Channel: qianniu
+2025-11-27 21:29:24 [INFO] DeviceBindWindow::VerifyCodeAsync:   ├─ ShopName: xigu-1127-1
+2025-11-27 21:29:24 [INFO] DeviceBindWindow::VerifyCodeAsync:   ├─ ShopId: xigu-1127-1
+2025-11-27 21:29:24 [INFO] DeviceBindWindow::VerifyCodeAsync:   ├─ CustomerAgentId: e7812e8287ca4ba4930d00d68862ae56
+2025-11-27 21:29:24 [INFO] DeviceBindWindow::VerifyCodeAsync:   ├─ DesktopId: (null)
+2025-11-27 21:29:24 [INFO] DeviceBindWindow::VerifyCodeAsync:   ├─ ClientUsername: (null)
+2025-11-27 21:29:24 [INFO] DeviceBindWindow::VerifyCodeAsync:   ├─ ClientPassword: (null)
+2025-11-27 21:29:24 [INFO] DeviceBindWindow::VerifyCodeAsync:   ├─ Env: dev
+2025-11-27 21:29:24 [INFO] DeviceBindWindow::VerifyCodeAsync:   └─ EquipmentId: 
+2025-11-27 21:29:24 [INFO] DeviceBindWindow::VerifyCodeAsync: 
+2025-11-27 21:29:24 [INFO] DeviceBindWindow::VerifyCodeAsync: ✅ ===========================================================
+2025-11-27 21:29:24 [INFO] DeviceBindWindow::OnSubmitClick: VerifyCodeAsync() 返回结果: True
+2025-11-27 21:29:24 [INFO] DeviceBindWindow::OnSubmitClick: 验证成功，准备关闭窗口
+2025-11-27 21:29:24 [INFO] DeviceBindWindow::OnSubmitClick: 设置 DialogResult = true，关闭窗口
+2025-11-27 21:29:24 [INFO] DeviceBindWindow::.ctor: 窗口关闭事件触发，注销热键
+2025-11-27 21:29:24 [INFO] DeviceBindWindow::OnSubmitClick: 窗口已关闭
+2025-11-27 21:29:24 [INFO] DeviceBindWindow::OnSubmitClick: #################### 提交按钮处理完成 ####################
+2025-11-27 21:29:24 [INFO] App::ShowDeviceBindWindow: 设备绑定成功，验证码: 307016
+2025-11-27 21:29:24 [INFO] App::UpdateConfigFromBindingData: 配置更新完成
+2025-11-27 21:29:24 RPAFunService::SaveFile:  写入配置文件: {
+2025-11-27 21:29:24   "Addr": "ws://dev-customer-servhub-api.betteryeah.com/v1/ws/client/message?",
+2025-11-27 21:29:24   "HttpUrl": "https://dev-customer-servhub-api.betteryeah.com/v1/client/last_record_time",
+2025-11-27 21:29:24   "WelcomeAddr": "https://dev-customer-servhub-api.betteryeah.com/v1/client/welcome_talks",
+2025-11-27 21:29:24   "HttpApiRoot": "https://dev-customer-servhub-api.betteryeah.com/v1/client",
+2025-11-27 21:29:24   "AutoRegisterAddr": "ws://dev-customer-servhub-api.betteryeah.com/v1/ws/client/auto_register?",
+2025-11-27 21:29:24   "WorkspaceID": "6527933d15a578689bb54afd",
+2025-11-27 21:29:24   "AccessKey": "NjUyNzkzM2QxNWE1Nzg2ODliYjU0YWZkLDE5NTksMTcxOTU0NTM4MzE1MA==",
+2025-11-27 21:29:24   "BtyUserID": "10058",
+2025-11-27 21:29:24   "HeartFailedSendCount": 3,
+2025-11-27 21:29:24   "HeartSendTimeInterval": 5,
+2025-11-27 21:29:24   "ServiceHeartSendTimeInterval": 30,
+2025-11-27 21:29:24   "HealthReportInterval": 30,
+2025-11-27 21:29:24   "CustomerService": "客服20",
+2025-11-27 21:29:24   "IntervalTime": 100,
+2025-11-27 21:29:24   "ShopID": "xigu-1127-1",
+2025-11-27 21:29:24   "Channel": "qianniu",
+2025-11-27 21:29:24   "ScreenShotInterval": 10,
+2025-11-27 21:29:24   "TransferorPserson": "",
+2025-11-27 21:29:24   "TransferPerson": "",
+2025-11-27 21:29:24   "CustomerServiceList": "",
+2025-11-27 21:29:24   "CloseCustomerWindows": 480,
+2025-11-27 21:29:24   "EnableAliyunLogging": true,
+2025-11-27 21:29:24   "AppEnv": "dev",
+2025-11-27 21:29:24   "CustomerAgentID": "e7812e8287ca4ba4930d00d68862ae56",
+2025-11-27 21:29:24   "DesktopID": "",
+2025-11-27 21:29:24   "ShopName": "xigu-1127-1",
+2025-11-27 21:29:24   "IsRegister": false,
+2025-11-27 21:29:24   "ClientUserName": "",
+2025-11-27 21:29:24   "ClientPassword": "",
+2025-11-27 21:29:24   "EquipmentID": "",
+2025-11-27 21:29:24   "AutoRegisterToken": "",
+2025-11-27 21:29:24   "MaxPersonCount": 10,
+2025-11-27 21:29:24   "MinPersonCountRatio": 0.8
+2025-11-27 21:29:24 }
+2025-11-27 21:29:24 [INFO] App::ShowDeviceBindWindow: 配置已更新并保存
+2025-11-27 21:29:24 [INFO] App::ShowDeviceBindWindow: 配置详情: {
+2025-11-27 21:29:24   "Addr": "ws://dev-customer-servhub-api.betteryeah.com/v1/ws/client/message?",
+2025-11-27 21:29:24   "HttpUrl": "https://dev-customer-servhub-api.betteryeah.com/v1/client/last_record_time",
+2025-11-27 21:29:24   "WelcomeAddr": "https://dev-customer-servhub-api.betteryeah.com/v1/client/welcome_talks",
+2025-11-27 21:29:24   "HttpApiRoot": "https://dev-customer-servhub-api.betteryeah.com/v1/client",
+2025-11-27 21:29:24   "AutoRegisterAddr": "ws://dev-customer-servhub-api.betteryeah.com/v1/ws/client/auto_register?",
+2025-11-27 21:29:24   "WorkspaceID": "6527933d15a578689bb54afd",
+2025-11-27 21:29:24   "AccessKey": "NjUyNzkzM2QxNWE1Nzg2ODliYjU0YWZkLDE5NTksMTcxOTU0NTM4MzE1MA==",
+2025-11-27 21:29:24   "BtyUserID": "10058",
+2025-11-27 21:29:24   "HeartFailedSendCount": 3,
+2025-11-27 21:29:24   "HeartSendTimeInterval": 5,
+2025-11-27 21:29:24   "ServiceHeartSendTimeInterval": 30,
+2025-11-27 21:29:24   "HealthReportInterval": 30,
+2025-11-27 21:29:24   "CustomerService": "客服20",
+2025-11-27 21:29:24   "IntervalTime": 100,
+2025-11-27 21:29:24   "ShopID": "xigu-1127-1",
+2025-11-27 21:29:24   "Channel": "qianniu",
+2025-11-27 21:29:24   "ScreenShotInterval": 10,
+2025-11-27 21:29:24   "TransferorPserson": "",
+2025-11-27 21:29:24   "TransferPerson": "",
+2025-11-27 21:29:24   "CustomerServiceList": "",
+2025-11-27 21:29:24   "CloseCustomerWindows": 480,
+2025-11-27 21:29:24   "EnableAliyunLogging": true,
+2025-11-27 21:29:24   "AppEnv": "dev",
+2025-11-27 21:29:24   "CustomerAgentID": "e7812e8287ca4ba4930d00d68862ae56",
+2025-11-27 21:29:24   "DesktopID": "",
+2025-11-27 21:29:24   "ShopName": "xigu-1127-1",
+2025-11-27 21:29:24   "IsRegister": false,
