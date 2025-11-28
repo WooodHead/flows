@@ -1,0 +1,519 @@
+{
+  "code": 200,
+  "success": true,
+  "message": "SUCCESS",
+  "data": {
+      "applicationType": "AI",
+      "color": "#ADE9CE",
+      "config": {
+          "edges": [
+              {
+                  "id": "cfe9ae4b-86de-47fa-bfd8-6f551a571e5d-4cb383a7-36ef-4023-9e6c-4e81bee014a7",
+                  "type": "insert",
+                  "style": {
+                      "stroke": "#C0C3D1",
+                      "strokeWidth": 2,
+                      "strokeLinecap": "round",
+                      "strokeLinejoin": "round"
+                  },
+                  "source": "cfe9ae4b-86de-47fa-bfd8-6f551a571e5d",
+                  "target": "4cb383a7-36ef-4023-9e6c-4e81bee014a7",
+                  "interactionWidth": 80
+              },
+              {
+                  "id": "c789c979-2ed3-43c9-94b4-2aee5e324230-cfe9ae4b-86de-47fa-bfd8-6f551a571e5d",
+                  "type": "insert",
+                  "style": {
+                      "stroke": "#C0C3D1",
+                      "strokeWidth": 2,
+                      "strokeLinecap": "round",
+                      "strokeLinejoin": "round"
+                  },
+                  "source": "c789c979-2ed3-43c9-94b4-2aee5e324230",
+                  "target": "cfe9ae4b-86de-47fa-bfd8-6f551a571e5d",
+                  "interactionWidth": 80
+              },
+              {
+                  "id": "d4c6dc28-e453-4e3c-be91-7181381d49a4-03927ffc-fc24-49b7-a1c6-67cf887e73a1",
+                  "type": "insert",
+                  "style": {
+                      "stroke": "#C0C3D1",
+                      "strokeWidth": 2,
+                      "strokeLinecap": "round",
+                      "strokeLinejoin": "round"
+                  },
+                  "source": "d4c6dc28-e453-4e3c-be91-7181381d49a4",
+                  "target": "03927ffc-fc24-49b7-a1c6-67cf887e73a1",
+                  "interactionWidth": 80
+              },
+              {
+                  "id": "7fdfdad3-de32-4ba5-a3d1-49c151082780-d4c6dc28-e453-4e3c-be91-7181381d49a4",
+                  "type": "insert",
+                  "style": {
+                      "stroke": "#C0C3D1",
+                      "strokeWidth": 2,
+                      "strokeLinecap": "round",
+                      "strokeLinejoin": "round"
+                  },
+                  "source": "7fdfdad3-de32-4ba5-a3d1-49c151082780",
+                  "target": "d4c6dc28-e453-4e3c-be91-7181381d49a4",
+                  "interactionWidth": 80
+              },
+              {
+                  "id": "03927ffc-fc24-49b7-a1c6-67cf887e73a1-5ec94526-e3a7-48b5-a6ad-d22882b4a6be",
+                  "type": "insert",
+                  "style": {
+                      "stroke": "#C0C3D1",
+                      "strokeWidth": 2,
+                      "strokeLinecap": "round",
+                      "strokeLinejoin": "round"
+                  },
+                  "source": "03927ffc-fc24-49b7-a1c6-67cf887e73a1",
+                  "target": "5ec94526-e3a7-48b5-a6ad-d22882b4a6be",
+                  "interactionWidth": 80
+              },
+              {
+                  "id": "660a1d0d-6940-4463-9791-0e5f89b7a96a-c789c979-2ed3-43c9-94b4-2aee5e324230",
+                  "type": "insert",
+                  "style": {
+                      "stroke": "#C0C3D1",
+                      "strokeWidth": 2,
+                      "strokeLinecap": "round",
+                      "strokeLinejoin": "round"
+                  },
+                  "source": "660a1d0d-6940-4463-9791-0e5f89b7a96a",
+                  "target": "c789c979-2ed3-43c9-94b4-2aee5e324230",
+                  "interactionWidth": 80
+              },
+              {
+                  "id": "5ec94526-e3a7-48b5-a6ad-d22882b4a6be-660a1d0d-6940-4463-9791-0e5f89b7a96a",
+                  "type": "insert",
+                  "style": {
+                      "stroke": "#C0C3D1",
+                      "strokeWidth": 2,
+                      "strokeLinecap": "round",
+                      "strokeLinejoin": "round"
+                  },
+                  "source": "5ec94526-e3a7-48b5-a6ad-d22882b4a6be",
+                  "target": "660a1d0d-6940-4463-9791-0e5f89b7a96a",
+                  "interactionWidth": 80
+              }
+          ],
+          "nodes": [
+              {
+                  "id": "7fdfdad3-de32-4ba5-a3d1-49c151082780",
+                  "data": {
+                      "name": "start",
+                      "type": "form",
+                      "inputs": {},
+                      "isEnable": true,
+                      "relation": null,
+                      "actionType": "TRIGGER",
+                      "conditions": [],
+                      "formConfig": [
+                          {
+                              "type": "json",
+                              "label": "聊天记录",
+                              "required": true,
+                              "placeholder": "请输入",
+                              "variableName": "dialogue",
+                              "cascadeFields": [],
+                              "isCascadeField": false
+                          },
+                          {
+                              "type": "input",
+                              "label": "最新消息",
+                              "placeholder": "",
+                              "variableName": "message",
+                              "cascadeFields": [],
+                              "isCascadeField": false
+                          },
+                          {
+                              "type": "input",
+                              "label": "事件二级",
+                              "placeholder": "",
+                              "variableName": "event_two",
+                              "cascadeFields": [],
+                              "isCascadeField": false
+                          },
+                          {
+                              "type": "input",
+                              "label": "店铺名称",
+                              "placeholder": "",
+                              "variableName": "shop_id",
+                              "cascadeFields": [],
+                              "isCascadeField": false
+                          },
+                          {
+                              "type": "input",
+                              "label": "平台名称",
+                              "placeholder": "",
+                              "variableName": "platform",
+                              "cascadeFields": [],
+                              "isCascadeField": false
+                          },
+                          {
+                              "type": "json",
+                              "label": "自定义参数",
+                              "placeholder": "",
+                              "defaultValue": {},
+                              "variableName": "customer_config",
+                              "cascadeFields": [],
+                              "isCascadeField": false
+                          },
+                          {
+                              "type": "json",
+                              "label": "数据库配置",
+                              "placeholder": "",
+                              "defaultValue": "",
+                              "variableName": "database_config",
+                              "cascadeFields": [],
+                              "isCascadeField": false
+                          },
+                          {
+                              "type": "json",
+                              "label": "知识库配置",
+                              "placeholder": "",
+                              "defaultValue": "",
+                              "variableName": "knowledge_base_config",
+                              "cascadeFields": [],
+                              "isCascadeField": false
+                          },
+                          {
+                              "type": "input",
+                              "label": "鉴权信息",
+                              "placeholder": "",
+                              "defaultValue": "{}",
+                              "variableName": "auth",
+                              "cascadeFields": [],
+                              "isCascadeField": false
+                          }
+                      ],
+                      "packageName": "",
+                      "sortCopyIndex": -1
+                  },
+                  "name": "start",
+                  "type": "START",
+                  "layout": {
+                      "width": 420,
+                      "height": 1068,
+                      "position": {
+                          "x": 0,
+                          "y": 0
+                      }
+                  },
+                  "isEnable": true,
+                  "relation": null,
+                  "actionType": "TRIGGER"
+              },
+              {
+                  "id": "03927ffc-fc24-49b7-a1c6-67cf887e73a1",
+                  "data": {
+                      "name": "match",
+                      "type": null,
+                      "inputs": {
+                          "model": "grok-4-fast-non-reasoning",
+                          "top_p": 0.6,
+                          "plugin": {
+                              "json_mode": true
+                          },
+                          "stream": true,
+                          "channel": "Xai",
+                          "messages": [
+                              {
+                                  "role": "user",
+                                  "content": "<user>\n  <context>\n    conversation_history:\n      content: \"{{dialogue}}\"\n      description: \"对话历史记录\"\n\n    user_input:\n      content: \"{{message}}\"\n      description: \"顾客当前输入\"\n  </context>\n\n  <instruction>\n    task_description:\n      - \"请根据顾客输入和对话记录,从type_list中选择最匹配的商品品类\"\n  </instruction>\n</user>"
+                              }
+                          ],
+                          "promptType": "raw",
+                          "temperature": 0.3,
+                          "context_type": "messageList",
+                          "modelSetting": {
+                              "model": "grok-4-fast-non-reasoning",
+                              "top_p": 0.6,
+                              "channel": "Xai",
+                              "outputType": "json",
+                              "temperature": 0.3,
+                              "frequency_penalty": 0,
+                              "is_variable_selected": false
+                          },
+                          "is_show_think": true,
+                          "system_content": "<system>\n  <role>\n    agent_info:\n      identity: \"商品品类判断专家\"\n      task: \"基于顾客输入和对话上下文,从品类列表中选择最匹配的商品品类\"\n  </role>\n\n  <context>\n    type_list:\n      content: \"{{type.data}}\"\n      description: \"可选的商品品类列表\"\n  </context>\n\n  <output>\n    response_format:\n      format: \"JSON\"\n      schema:\n        type: \"object\"\n        required: [\"category\"]\n        properties:\n          category:\n            type: \"string\"\n            description: \"匹配的商品品类,必须从type_list中选择\"\n  </output>\n\n  <priority>\n    selection_priority:\n      - \"优先匹配顾客明确提到的商品名称或特征\"\n      - \"其次参考对话上下文中的商品信息\"\n      - \"无法确定时选择最通用或最可能的品类\"\n  </priority>\n\n  <constraints>\n    selection_rules:\n      must_from_list:\n        - \"category值必须是type_list中的某一项\"\n        - \"严禁输出列表外的品类名称\"\n\n      fallback_strategy:\n        - \"当完全无法判断时,从type_list中选择最通用的品类\"\n        - \"如果type_list有'其他'或类似兜底品类,优先选择\"\n        - \"若无兜底品类,选择列表中第一个品类\"\n\n    matching_strategy:\n      - \"提取顾客输入中的关键商品词汇\"\n      - \"对比type_list中每个品类的语义相关性\"\n      - \"选择相关性最高的品类\"\n  </constraints>\n</system>",
+                          "frequency_penalty": 0,
+                          "is_show_think_var": null
+                      },
+                      "isEnable": true,
+                      "relation": null,
+                      "actionType": "INTEGRATION",
+                      "conditions": [],
+                      "formConfig": null,
+                      "packageName": "integration.llm.LLMAction",
+                      "sortCopyIndex": -1
+                  },
+                  "name": "match",
+                  "type": "LLM",
+                  "layout": {
+                      "width": 420,
+                      "height": 1061,
+                      "position": {
+                          "x": 1088,
+                          "y": 0
+                      }
+                  },
+                  "isEnable": true,
+                  "relation": null,
+                  "actionType": "INTEGRATION"
+              },
+              {
+                  "id": "4cb383a7-36ef-4023-9e6c-4e81bee014a7",
+                  "data": {
+                      "name": "output",
+                      "type": null,
+                      "inputs": {},
+                      "isEnable": true,
+                      "relation": null,
+                      "actionType": "END",
+                      "conditions": [],
+                      "formConfig": null,
+                      "packageName": "",
+                      "sortCopyIndex": -1
+                  },
+                  "name": "output",
+                  "type": "END",
+                  "layout": {
+                      "width": 420,
+                      "height": 98,
+                      "position": {
+                          "x": 3808,
+                          "y": 0
+                      }
+                  },
+                  "isEnable": true,
+                  "relation": null,
+                  "actionType": "END"
+              },
+              {
+                  "id": "cfe9ae4b-86de-47fa-bfd8-6f551a571e5d",
+                  "data": {
+                      "name": "answer",
+                      "type": null,
+                      "inputs": {
+                          "code": "from betteryeah import BetterYeah, Model\nbetter_yeah = BetterYeah()\n\nasync def main():\n    answer = summary.get('answer')\n    thinking = summary.get('thinking')\n\n    return {\n        'messages': [answer],\n        'thinking': thinking,\n        \"flow_name\": \"商品推荐\",\n        \"flow_type\": \"RECOMMEND\",\n        \"debug_message\":f\"商品推荐:\\n\\t思考过程: {thinking}\\n\\t回答: {answer}\"\n    }\n",
+                          "desc": "",
+                          "version": 1,
+                          "language": "python"
+                      },
+                      "isEnable": true,
+                      "relation": null,
+                      "actionType": "CODE",
+                      "conditions": [],
+                      "formConfig": null,
+                      "packageName": "",
+                      "sortCopyIndex": -1
+                  },
+                  "name": "answer",
+                  "type": "CODE",
+                  "layout": {
+                      "width": 420,
+                      "height": 435,
+                      "position": {
+                          "x": 3264,
+                          "y": 0
+                      }
+                  },
+                  "isEnable": true,
+                  "relation": null,
+                  "actionType": "CODE"
+              },
+              {
+                  "id": "c789c979-2ed3-43c9-94b4-2aee5e324230",
+                  "data": {
+                      "name": "summary",
+                      "type": null,
+                      "inputs": {
+                          "model": "grok-4-fast-non-reasoning",
+                          "top_p": 0.6,
+                          "plugin": {
+                              "json_mode": true
+                          },
+                          "stream": true,
+                          "channel": "Xai",
+                          "messages": [
+                              {
+                                  "role": "user",
+                                  "content": "<user>\n  <context>\n    current_message:\n      content: \"{{message}}\"\n      description: \"顾客最新消息\"\n\n    dialogue_history:\n      content: \"{{dialogue}}\"\n      description: \"历史对话记录\"\n  </context>\n\n  <instruction>\n    task_description:\n      - \"理解顾客需求,从product中推荐合适商品\"\n      - \"product中有链接时附带,无链接时不添加\"\n      - \"遵循个性化推荐指令(若有)\"\n  </instruction>\n</user>"
+                              }
+                          ],
+                          "promptType": "raw",
+                          "temperature": 0.3,
+                          "context_type": "messageList",
+                          "modelSetting": {
+                              "model": "grok-4-fast-non-reasoning",
+                              "top_p": 0.6,
+                              "channel": "Xai",
+                              "outputType": "json",
+                              "temperature": 0.3,
+                              "presence_penalty": 1.5,
+                              "frequency_penalty": 0,
+                              "is_variable_selected": false
+                          },
+                          "is_show_think": true,
+                          "system_content": "<system>\n  <role>\n    agent_info:\n      identity: \"{{shop_id}}客服\"\n      task: \"代替人工客服,以真人视角为顾客提供商品推荐和精准问答\"\n      behavioral_rules:\n        语气要求:\n          - \"自然口语化表达,如'亲'、'您'、'这边'\"\n          - \"保持真人客服的亲切友好语气\"\n        长度限制:\n          - \"不超过50字(不包括商品URL)\"\n        格式要求:\n          - \"严格禁止列表格式(-、*、数字等)和markdown语法\"\n          - \"product中有商品链接时附带,无链接时不添加\"\n        身份保护:\n          - \"禁止主动提及AI、机器人、智能客服等技术词汇\"\n          - \"使用第一人称视角('我'、'这边'),避免第三人称('客服')\"\n  </role>\n\n  <context>\n    product:\n      content: \"{{product}}\"\n      description: \"商品参数信息和SKU信息\"\n\n    support_strategy:\n      content: \"{{behavior}}\"\n      description: \"辅助策略,推荐话术和技巧参考\"\n\n    customization:\n      content: \"{{customer_config.recommend.flow_instruction}}\"\n      description: \"店铺个性化推荐指令\"\n  </context>\n\n  <output>\n    response_format:\n      format: \"JSON\"\n      schema:\n        type: \"object\"\n        required: [\"thinking\", \"answer\"]\n        properties:\n          thinking:\n            type: \"string\"\n            description: \"完整思考过程\"\n          answer:\n            type: \"string\"\n            description: \"客服回复内容\"\n  </output>\n\n  <priority>\n    response_focus:\n      - \"自定义指令优先级最高: 个性化推荐指令 > 其他规则\"\n      - \"信息有效性: 推荐必须基于product中的实际商品\"\n      - \"数据严格性: 所有信息严格来自输入数据,严禁根据常识补充\"\n      - \"语气友好度: 保持真人客服的自然亲切语气\"\n  </priority>\n\n  <constraints>\n    core_rules:\n      - \"回答前思考: 推荐的商品是否符合顾客需求?\"\n      - \"只推荐product中存在的商品,严禁编造或推荐不存在的商品\"\n      - \"product为空或无合适商品时,诚实告知,不强行推荐\"\n      - \"优先参考support_strategy,结合顾客需求匹配商品\"\n      - \"严禁使用常识、经验或推理补充商品信息\"\n  </constraints>\n</system>",
+                          "presence_penalty": 1.5,
+                          "frequency_penalty": 0,
+                          "is_show_think_var": null
+                      },
+                      "isEnable": true,
+                      "relation": null,
+                      "actionType": "INTEGRATION",
+                      "conditions": [],
+                      "formConfig": null,
+                      "packageName": "integration.llm.LLMAction",
+                      "sortCopyIndex": -1
+                  },
+                  "name": "summary",
+                  "type": "LLM",
+                  "layout": {
+                      "width": 420,
+                      "height": 1061,
+                      "position": {
+                          "x": 2720,
+                          "y": 0
+                      }
+                  },
+                  "isEnable": true,
+                  "relation": null,
+                  "actionType": "INTEGRATION"
+              },
+              {
+                  "id": "d4c6dc28-e453-4e3c-be91-7181381d49a4",
+                  "data": {
+                      "name": "type",
+                      "type": null,
+                      "inputs": {
+                          "code": "from betteryeah import BetterYeah, Model\nbetter_yeah = BetterYeah()\n\n# 必须保证节点中存在一个main函数\n# 你的代码应该在main函数中编写\n# main函数的返回值为当前节点的返回值\nasync def main():\n    # 获取参数\n    database_id = database_config[\"id\"]\n    \n    # 构建SQL查询\n    sql = \"SELECT distinct 商品品类 FROM 店铺商品目录 LIMIT 500;\"\n    \n    # 执行数据库查询\n    res = await better_yeah.database.execute_database(\n        base_id=database_id,\n        executable_sql=sql\n    )\n    \n    # 返回JSON格式\n    return {\n        \"command\": res.data.command,\n        \"rowCount\": res.data.rowCount,\n        \"data\": res.data.data\n    }\n",
+                          "desc": "",
+                          "version": 1,
+                          "language": "python"
+                      },
+                      "isEnable": true,
+                      "relation": null,
+                      "actionType": "CODE",
+                      "conditions": [],
+                      "formConfig": null,
+                      "packageName": "",
+                      "sortCopyIndex": -1
+                  },
+                  "name": "type",
+                  "type": "CODE",
+                  "layout": {
+                      "width": 420,
+                      "height": 435,
+                      "position": {
+                          "x": 544,
+                          "y": 0
+                      }
+                  },
+                  "isEnable": true,
+                  "relation": null,
+                  "actionType": "CODE"
+              },
+              {
+                  "id": "5ec94526-e3a7-48b5-a6ad-d22882b4a6be",
+                  "data": {
+                      "name": "product",
+                      "type": null,
+                      "inputs": {
+                          "code": "from betteryeah import BetterYeah\nimport json\nimport re\n\nbetter_yeah = BetterYeah()\n\ndef extract_product_codes_from_dialogue(dialogue_data):\n    \"\"\"\n    从对话中提取货号/款号(字母+数字组合)\n    支持格式: dw2415, ABC123, 845680, M123-456等\n    \"\"\"\n    codes = []\n    \n    for message in dialogue_data:\n        if not message or not isinstance(message, dict):\n            continue\n        \n        if message.get(\"role\") not in [\"user\", \"assistant\"]:\n            continue\n            \n        content = message.get(\"content\")\n        if not content:\n            continue\n        \n        # 提取文本\n        if isinstance(content, str):\n            text = content\n        elif isinstance(content, dict):\n            text = content.get('text', '')\n        else:\n            continue\n        \n        # 匹配货号模式(支持中文环境)\n        matches = re.findall(r'([a-zA-Z0-9][-_a-zA-Z0-9]{2,})', text)\n        \n        for code in matches:\n            # 过滤纯字母(可能是普通单词)\n            if not re.search(r'\\d', code):\n                continue\n            # 过滤纯数字且长度<4(可能是数量)\n            if code.isdigit() and len(code) < 4:\n                continue\n            # 去重\n            if code not in codes:\n                codes.append(code)\n    \n    return codes\n\nasync def fetch_products_by_codes(database_id, product_codes):\n    \"\"\"\n    根据货号模糊匹配商品\n    \"\"\"\n    if not product_codes:\n        return []\n    \n    # 构建LIKE查询条件\n    like_conditions = \" OR \".join([f\"商品标题 LIKE '%{code}%'\" for code in product_codes])\n    \n    product_sql = f\"\"\"\n    SELECT \n        商品id, 商品标题, 商品链接, 参数, 商品详情页识别结果, \n        轮播图识别结果, 卖点, 补充知识\n    FROM 店铺商品目录\n    WHERE {like_conditions}\n    LIMIT 20\n    \"\"\"\n    \n    try:\n        product_res = await better_yeah.database.execute_database(\n            base_id=database_id,\n            executable_sql=product_sql\n        )\n        \n        if product_res.success and hasattr(product_res.data, 'data'):\n            products = product_res.data.data\n            if products:\n                print(f\"[数据] 货号匹配:{len(products)}个\")\n            return products\n        \n    except Exception as e:\n        print(f\"[错误] 货号查询失败: {str(e)}\")\n    \n    return []\n\nasync def main():\n    \"\"\"\n    整合数据库和知识库数据\n    支持: 1.货号查询(优先) 2.品类推荐(补充)\n    \"\"\"\n    \n    # 获取参数\n    database_id = database_config[\"id\"]\n    category = match.get(\"category\", \"\")\n    \n    all_products = []\n    \n    # ========== 1. 货号查询(优先) ==========\n    product_codes = extract_product_codes_from_dialogue(dialogue)\n    \n    if product_codes:\n        print(f\"[提取] 货号:{len(product_codes)}个\")\n        products_by_code = await fetch_products_by_codes(database_id, product_codes)\n        all_products.extend(products_by_code)\n    \n    # ========== 2. 品类推荐(补充) ==========\n    if category and len(all_products) < 20:\n        limit = 20 - len(all_products)\n        \n        product_sql = f\"\"\"\n        SELECT \n            商品id, 商品标题, 商品链接, 参数, 商品详情页识别结果, \n            轮播图识别结果, 卖点, 补充知识\n        FROM (\n          SELECT\n            商品id, 商品标题, 商品链接, 参数, 商品详情页识别结果, \n            轮播图识别结果, 卖点, 补充知识,\n            ROW_NUMBER() OVER (PARTITION BY 商品id ORDER BY id) AS rn,\n            CASE WHEN 是否主推 = '是' THEN 1 ELSE 2 END AS priority\n          FROM 店铺商品目录\n          WHERE 商品品类 LIKE '%{category}%'\n        ) t\n        WHERE rn = 1\n        ORDER BY priority ASC, RANDOM()\n        LIMIT {limit}\n        \"\"\"\n        \n        try:\n            product_res = await better_yeah.database.execute_database(\n                base_id=database_id,\n                executable_sql=product_sql\n            )\n            \n            if product_res.success and hasattr(product_res.data, 'data'):\n                products = product_res.data.data\n                all_products.extend(products)\n                print(f\"[数据] 品类推荐:{len(products)}个\")\n        \n        except Exception as e:\n            print(f\"[错误] 品类查询失败: {str(e)}\")\n    \n    if not all_products:\n        return []\n    \n    # ========== 3. 去重(基于商品ID) ==========\n    seen_ids = set()\n    unique_products = []\n    for p in all_products:\n        if isinstance(p, dict):\n            item_id = p.get(\"商品id\")\n            if item_id and item_id not in seen_ids:\n                seen_ids.add(item_id)\n                unique_products.append(p)\n    \n    # ========== 4. 批量查询SKU ==========\n    product_ids = [p.get(\"商品id\") for p in unique_products]\n    \n    if product_ids:\n        ids_str = \"','\".join(str(pid) for pid in product_ids)\n        sku_sql = f\"\"\"\n        SELECT 商品id, sku, sku图识别结果\n        FROM sku参数表\n        WHERE 商品id IN ('{ids_str}')\n        \"\"\"\n        \n        try:\n            sku_res = await better_yeah.database.execute_database(\n                base_id=database_id,\n                executable_sql=sku_sql\n            )\n            \n            if sku_res.success:\n                skus = sku_res.data.data\n            else:\n                skus = []\n        except:\n            skus = []\n    else:\n        skus = []\n    \n    # ========== 5. 组装数据 ==========\n    # 按商品ID分组SKU\n    sku_map = {}\n    for sku in skus:\n        if not isinstance(sku, dict):\n            continue\n        item_id = sku.get(\"商品id\")\n        if item_id:\n            if item_id not in sku_map:\n                sku_map[item_id] = []\n            sku_map[item_id].append({\n                \"sku\": sku.get(\"sku\", \"\"),\n                \"sku图识别结果\": sku.get(\"sku图识别结果\", \"\")\n            })\n    \n    # 组装最终结果\n    processed_data = []\n    for product in unique_products:\n        if not isinstance(product, dict):\n            continue\n            \n        item_id = product.get(\"商品id\", \"\")\n        \n        processed_item = {\n            \"商品id\": item_id,\n            \"商品标题\": product.get(\"商品标题\", \"\"),\n            \"商品链接\": product.get(\"商品链接\", \"\"),\n            \"参数\": product.get(\"参数\", \"\"),\n            \"商品详情页识别结果\": [],\n            \"轮播图识别结果\": [],\n            \"卖点\": product.get(\"卖点\", \"\"),\n            \"补充知识\": product.get(\"补充知识\", \"\"),\n            \"sku\": sku_map.get(item_id, [])\n        }\n        \n        # 处理商品详情页识别结果 - 去掉url\n        detail_result = product.get(\"商品详情页识别结果\", \"\")\n        if detail_result:\n            try:\n                detail_list = json.loads(detail_result) if isinstance(detail_result, str) else detail_result\n                if isinstance(detail_list, list):\n                    for detail_item in detail_list:\n                        if isinstance(detail_item, dict):\n                            desc_dict = {k: v for k, v in detail_item.items() if k.startswith(\"image_desc\")}\n                            if desc_dict:\n                                processed_item[\"商品详情页识别结果\"].append(desc_dict)\n            except:\n                pass\n        \n        # 处理轮播图识别结果 - 去掉url\n        carousel_result = product.get(\"轮播图识别结果\", \"\")\n        if carousel_result:\n            try:\n                carousel_list = json.loads(carousel_result) if isinstance(carousel_result, str) else carousel_result\n                if isinstance(carousel_list, list):\n                    for carousel_item in carousel_list:\n                        if isinstance(carousel_item, dict):\n                            desc_dict = {k: v for k, v in carousel_item.items() if k.startswith(\"image_desc\")}\n                            if desc_dict:\n                                processed_item[\"轮播图识别结果\"].append(desc_dict)\n            except:\n                pass\n        \n        processed_data.append(processed_item)\n    \n    print(f\"[完成] 返回商品:{len(processed_data)}个\")\n    \n    return processed_data",
+                          "desc": "",
+                          "version": 1,
+                          "language": "python"
+                      },
+                      "isEnable": true,
+                      "relation": null,
+                      "actionType": "CODE",
+                      "conditions": [],
+                      "formConfig": null,
+                      "packageName": "",
+                      "sortCopyIndex": -1
+                  },
+                  "name": "product",
+                  "type": "CODE",
+                  "layout": {
+                      "width": 420,
+                      "height": 435,
+                      "position": {
+                          "x": 1632,
+                          "y": 0
+                      }
+                  },
+                  "isEnable": true,
+                  "relation": null,
+                  "actionType": "CODE"
+              },
+              {
+                  "id": "660a1d0d-6940-4463-9791-0e5f89b7a96a",
+                  "data": {
+                      "name": "behavior",
+                      "type": null,
+                      "inputs": {
+                          "code": "from betteryeah import BetterYeah\nbetter_yeah = BetterYeah()\n\nasync def main():\n    # 获取database_id\n    database_id = database_config[\"id\"]\n    \n    # 构建SQL查询\n    sql = f\"SELECT situation, action FROM 场景策略 WHERE 事件二级标签 = '{event_two}' LIMIT 50\"\n    \n    # 执行数据库查询\n    res = await better_yeah.database.execute_database(\n        base_id=database_id,\n        executable_sql=sql\n    )\n    \n    # 直接返回data数组\n    if res.success and res.data and res.data.data:\n        return res.data.data\n    else:\n        return []",
+                          "desc": "",
+                          "version": 1,
+                          "language": "python"
+                      },
+                      "isEnable": true,
+                      "relation": null,
+                      "actionType": "CODE",
+                      "conditions": [],
+                      "formConfig": null,
+                      "packageName": "",
+                      "sortCopyIndex": -1
+                  },
+                  "name": "behavior",
+                  "type": "CODE",
+                  "layout": {
+                      "width": 420,
+                      "height": 435,
+                      "position": {
+                          "x": 2176,
+                          "y": 0
+                      }
+                  },
+                  "isEnable": true,
+                  "relation": null,
+                  "actionType": "CODE"
+              }
+          ]
+      },
+      "description": "商品推荐-v3.0",
+      "icon": "🌼",
+      "createBy": "夕谷",
+      "creatorId": 45000,
+      "flowId": "a36b0393cb744b81a90b10c2ed8064a2",
+      "id": "a36b0393cb744b81a90b10c2ed8064a2",
+      "modifiedAt": "2025-11-28T11:24:31.779543",
+      "modifiedBy": "夕谷",
+      "isPublic": false,
+      "name": "商品推荐-v3.0",
+      "workspaceId": "531c14d1ece047cbaec22914e1f1364d",
+      "versionId": "310db8c1f5d642b98bc3bad505c01fc8",
+      "versionStatus": "PUBLISHED",
+      "applicationVersion": 3,
+      "appGroupId": "f89f3467ca0e4638a28883eabf44610d",
+      "appIsExample": false,
+      "isEnable": true,
+      "isBot": false,
+      "copilot_conversation_id": "",
+      "copilot_session_id": "",
+      "flow_lock": 0,
+      "copilot_agent_id": "893949ba623c465c9d2795a780b54c14",
+      "env": "TEST",
+      "env_var": [],
+      "env_app_id": "2609b3b3fec44e348cafefbf8778772d",
+      "active_multi_env": true,
+      "channel_type": "flow"
+  },
+  "request_id": "6f1d5f637d2d4a158344c70d4f058493",
+  "now_time": 1764300345
+}
