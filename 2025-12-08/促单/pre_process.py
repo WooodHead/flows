@@ -154,10 +154,12 @@ async def main():
 
         return {
             "promotion_scripts": unsent_scripts,
+            "promotion_scripts_count": len(unsent_scripts),
         }
 
     except Exception as e:
         return {
             "error": f"处理失败: {str(e)}",
-            "promotion_scripts": []
+            "promotion_scripts": [],
+            "promotion_scripts_count": 0
         }
