@@ -7,42 +7,49 @@ better_yeah = BetterYeah()
 # main函数的返回值为当前节点的返回值
 async def main():
     try:
+        if pre_process.promotion_scripts_count == 0:
+            return {
+                "flow_name": "促单1",
+                "messages": []
+            }
+
         # 读取判断结果，检查是否需要发送促单话术
         should_send = judge.get("should_send_promotion", False)
 
         # 如果不需要发送，返回空消息
         if not should_send:
             return {
-                "flow_name": "促单",
+                "flow_name": "促单2",
                 "messages": []
             }
 
         # 从pre_process中获取未发送的促销话术
-        unsent_scripts = pre_process.get("unsent_scripts", [])
+        promotion_scripts = pre_process.get("promotion_scripts", [])
 
         # 如果没有可用的话术，返回空消息
-        if not unsent_scripts:
+        if not promotion_scripts:
             return {"messages": []}
 
         # 随机选择一条话术
-        selected_script = random.choice(unsent_scripts)
+        selected_script = random.choice(promotion_scripts)
         script_content = selected_script.get("content", "")
 
         # 返回选中的话术
         if script_content:
             return {
-                "flow_name": "促单",
+                "flow_name": "促单3",
                 "messages": [script_content]
             }
         else:
             return {
-                "flow_name": "促单",
+                "flow_name": "促单4",
                 "messages": []
             }
 
     except Exception as e:
+        
         # 出错时返回空消息
         return {
-            "flow_name": "促单",
+            "flow_name": "促单5",
             "messages": []
         }
