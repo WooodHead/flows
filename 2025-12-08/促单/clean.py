@@ -123,31 +123,41 @@ def parse_dialogue_data(dialogue_data):
 # 必须保证节点中存在一个main函数
 async def main():
     try:
-        # 目标检查的内容
-        target_content = "361正品专卖无论质量还是效果相信都不会让您失望哦"
-        
         # 解析输入的对话数据
         dialogue_list = parse_dialogue_data(dialogue)
-        
-        # 提取assistant的所有历史回复
+
+        # 提取assistant的所有历史回复（客服消息）
         assistant_replies = extract_assistant_replies(dialogue_list)
-        
-        # 检查是否有相似内容
-        has_similar = False
-        similar_reply = ""
-        
-        for reply in assistant_replies:
-            if check_similarity(reply, target_content):
-                has_similar = True
-                similar_reply = reply
-                break
-        
+
+        # 获取促销话术列表
+        promotion_scripts = sop_config.get("promotion_scripts", [])
+
+        # 过滤出没有发送过的促销话术
+        unsent_scripts = []
+
+        for script in promotion_scripts:
+            script_content = script.get("content", "")
+            if not script_content:
+                continue
+
+            # 检查该话术是否已经发送过（相似度>=90%）
+            is_sent = False
+            for reply in assistant_replies:
+                similarity = calculate_similarity(reply, script_content)
+                if similarity >= 90:
+                    is_sent = True
+                    break
+
+            # 如果没有发送过，添加到结果列表
+            if not is_sent:
+                unsent_scripts.append(script)
+
         return {
-            "similar": has_similar
+            "promotion_scripts": unsent_scripts,
         }
-        
+
     except Exception as e:
         return {
             "error": f"处理失败: {str(e)}",
-            "has_similar_content": False
+            "promotion_scripts": []
         }
