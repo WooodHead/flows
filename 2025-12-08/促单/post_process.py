@@ -9,7 +9,7 @@ async def main():
     try:
         if pre_process.get("promotion_scripts_count", 0) == 0:
             return {
-                "flow_name": "促单1",
+                "flow_name": "促单",
                 "messages": []
             }
 
@@ -19,7 +19,7 @@ async def main():
         # 如果不需要发送，返回空消息
         if not should_send:
             return {
-                "flow_name": "促单2",
+                "flow_name": "促单",
                 "messages": []
             }
 
@@ -37,12 +37,12 @@ async def main():
         # 返回选中的话术
         if script_content:
             return {
-                "flow_name": "促单3",
+                "flow_name": "促单",
                 "messages": [script_content]
             }
         else:
             return {
-                "flow_name": "促单4",
+                "flow_name": "促单",
                 "messages": []
             }
 
@@ -55,6 +55,6 @@ async def main():
 
         # 出错时返回空消息
         return {
-            "flow_name": "促单5",
+            "flow_name": "促单",
             "messages": []
         }
