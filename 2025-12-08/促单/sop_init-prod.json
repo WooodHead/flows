@@ -1,0 +1,41 @@
+{
+  "timers": [
+    {
+      "id": "promotion1",
+      "name": "促单1",
+      "type": "AFTER_REPLY",
+      "delay_seconds": 300,
+      "business_type": "PROMOTION",
+      "trigger_event": {
+        "data": {},
+        "type": "FLOW_REQUEST"
+      },
+      "no_repeat_seconds": 7200
+    }
+  ],
+  "sop_type": "direct",
+  "policy_id": "agent_sop",
+  "promotion_enabled": false,
+  "promotion_scripts": [
+    {
+      "id": "1760027096",
+      "content": "咱们的活动马上就结束了哦，现在下单最划算！",
+      "group_name": "紧追感营造型"
+    },
+    {
+      "id": "1760027105",
+      "content": "您去实体店的话买相同品质的产品，肯定会超出这里的价格哦，性价比超高的哟",
+      "group_name": "价值强化型"
+    },
+    {
+      "id": "1760027237",
+      "content": "咱们店铺的老顾客基本上人手一件，复购率特别高。",
+      "group_name": "社交证明型"
+    },
+    {
+      "id": "1760027246",
+      "content": "亲，您看中的这个商品只剩下最后几件了哦，需要的话要抓紧下单哈。",
+      "group_name": "库存提醒型"
+    }
+  ]
+}
