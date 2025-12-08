@@ -7,7 +7,7 @@ better_yeah = BetterYeah()
 # main函数的返回值为当前节点的返回值
 async def main():
     try:
-        if pre_process.promotion_scripts_count == 0:
+        if pre_process.get("promotion_scripts_count", 0) == 0:
             return {
                 "flow_name": "促单1",
                 "messages": []
@@ -47,7 +47,12 @@ async def main():
             }
 
     except Exception as e:
-        
+        # 打印错误信息
+        print(f"Error in post_process: {str(e)}")
+        print(f"Exception type: {type(e).__name__}")
+        import traceback
+        traceback.print_exc()
+
         # 出错时返回空消息
         return {
             "flow_name": "促单5",
