@@ -123,6 +123,13 @@ def parse_dialogue_data(dialogue_data):
 # 必须保证节点中存在一个main函数
 async def main():
     try:
+        # 检查促单功能是否启用
+        if not sop_config.get("promotion_enabled", True):
+            return {
+                "promotion_scripts": [],
+                "promotion_scripts_count": 0,
+            }
+
         # 解析输入的对话数据
         dialogue_list = parse_dialogue_data(dialogue)
 
