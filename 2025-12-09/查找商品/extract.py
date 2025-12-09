@@ -33,6 +33,8 @@ async def fetch_products_by_entity(database_id, entity):
         
     except Exception as e:
         print(f"[错误] 实体'{entity}'查询失败: {str(e)}")
+        import traceback
+        print(f"[错误详情] {traceback.format_exc()}")
     
     return []
 
@@ -112,7 +114,10 @@ async def main():
                 skus = sku_res.data.data
             else:
                 skus = []
-        except:
+        except Exception as e:
+            print(f"[错误] 查询SKU失败: {str(e)}")
+            import traceback
+            print(f"[错误详情] {traceback.format_exc()}")
             skus = []
     else:
         skus = []
@@ -163,8 +168,10 @@ async def main():
                             desc_dict = {k: v for k, v in detail_item.items() if k.startswith("image_desc")}
                             if desc_dict:
                                 processed_item["商品详情页识别结果"].append(desc_dict)
-            except:
-                pass
+            except Exception as e:
+                print(f"[错误] 处理商品详情页识别结果失败(商品ID:{item_id}): {str(e)}")
+                import traceback
+                print(f"[错误详情] {traceback.format_exc()}")
         
         # 处理轮播图识别结果 - 去掉url
         carousel_result = product.get("轮播图识别结果", "")
@@ -177,8 +184,10 @@ async def main():
                             desc_dict = {k: v for k, v in carousel_item.items() if k.startswith("image_desc")}
                             if desc_dict:
                                 processed_item["轮播图识别结果"].append(desc_dict)
-            except:
-                pass
+            except Exception as e:
+                print(f"[错误] 处理轮播图识别结果失败(商品ID:{item_id}): {str(e)}")
+                import traceback
+                print(f"[错误详情] {traceback.format_exc()}")
         
         processed_data.append(processed_item)
     
