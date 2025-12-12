@@ -1,0 +1,62 @@
+{
+  "65a2335614f76c7ebc4912b8": {
+    "qianniu": [
+      "请稍等，即将为您转接专业客服处理",
+      "亲，这边已收到您反馈的问题，这边帮您转接专员为您处理哦~",
+      "亲，为了保证您享受最优质的服务，我将为您转接我们专业客服为您提供最全面的服务，正在转接中，请稍后....."
+    ],
+    "jingdong": [
+      "请稍等，即将为您转接专业客服处理",
+      "您好，这边已收到您反馈的问题，这边帮您转接专员为您处理哦~",
+      "您好，为了保证您享受最优质的服务，我将为您转接我们专业客服为您提供最全面的服务，正在转接中，请稍后....."
+    ]
+  },
+  "a3b52ff5ef004ff09e549148db231e8d": {
+    "qianniu": [
+      "请稍等，即将为您转接专业客服处理",
+      "亲，这边已收到您反馈的问题，这边帮您转接专员为您处理哦~",
+      "亲，为了保证您享受最优质的服务，我将为您转接我们专业客服为您提供最全面的服务，正在转接中，请稍后....."
+    ],
+    "jingdong": [
+      "请稍等，即将为您转接专业客服处理",
+      "您好，这边已收到您反馈的问题，这边帮您转接专员为您处理哦~",
+      "您好，为了保证您享受最优质的服务，我将为您转接我们专业客服为您提供最全面的服务，正在转接中，请稍后....."
+    ]
+  },
+  "a795bd4156fb4725b3cc042eac37a2d2": {
+    "qianniu": [
+      "请稍等，即将为您转接专业客服处理",
+      "亲，这边已收到您反馈的问题，这边帮您转接专员为您处理哦~",
+      "亲，为了保证您享受最优质的服务，我将为您转接我们专业客服为您提供最全面的服务，正在转接中，请稍后....."
+    ],
+    "jingdong": [
+      "请稍等，即将为您转接专业客服处理",
+      "您好，这边已收到您反馈的问题，这边帮您转接专员为您处理哦~",
+      "您好，为了保证您享受最优质的服务，我将为您转接我们专业客服为您提供最全面的服务，正在转接中，请稍后....."
+    ]
+  },
+  "b1cb2bd58d434d4aa6c40c24482a480c": {
+    "tidio": [
+      "抱歉，知识库中无相关知识或信息获取接口，需要人工介入处理"
+    ]
+  },
+  "f9c21ac6abc34110935b10d8889519a7": {
+    "tidio": [
+      "抱歉，知识库中无相关知识或信息获取接口，需要人工介入处理"
+    ],
+    "test_channel": {
+      "中文": [
+        "谢谢您的耐心等待。我已经详细了解了您的问题。\n为了给您提供最准确有效的解决方案，我现在为您安排相应的专业支持。我们会主动与您联系，确保您的问题得到妥善解决。\n感谢您的信任，我们会全程跟进直到问题完全解决。如果您还有其他需要，随时联系我们。祝您有美好的一天！"
+      ],
+      "英语": [
+        "Thank you for your patience. I have thoroughly understood your issue.\nTo provide you with the most accurate and effective solution, I am now arranging the appropriate professional support for you. We will proactively reach out to you to ensure your issue is properly resolved.\nThank you for your trust; we will follow up throughout the process until the issue is completely resolved. If you have any other needs, feel free to contact us. Have a wonderful day!"
+      ],
+      "孟加拉语": [
+        "আপনার ধৈর্য ধারণের জন্য আপনাকে ধন্যবাদ। আমি ইতোমধ্যে আপনার সমস্যাটি বিস্তারিতভাবে বুঝেছি।\nআপনাকে সর্বোচ্চ সঠিক ও কার্যকর সমাধান দেওয়ার জন্য আমি এখন আপনার জন্য উপযুক্ত পেশাদার সহায়তা ব্যবস্থা করছি। আমরা主动ভাবে আপনার সাথে যোগাযোগ করব যাতে আপনার সমস্যা যথাযথভাবে সমাধান হয়।\nআপনার বিশ্বাসের জন্য ধন্যবাদ। আমরা সম্পূর্ণ সমাধান না হওয়া পর্যন্ত পুরো প্রক্রিয়াটি অনুসরণ করব। যদি আপনার আরও কোনো প্রয়োজন থাকে, অনুগ্রহ করে যেকোনো সময় আমাদের সঙ্গে যোগাযোগ করুন।\nআপনার দিনটি শুভ হোক!"
+      ],
+      "西班牙语": [
+        "¡Gracias por su paciencia! He comprendido detalladamente su problema. \nPara ofrecerle la solución más precisa y efectiva, ahora le estoy organizando el soporte profesional correspondiente. Nos pondremos en contacto con usted proactivamente para asegurarnos de que su problema se resuelva adecuadamente. \nAgradecemos su confianza y estaremos en seguimiento hasta que el problema se solucione por completo. Si tiene alguna otra necesidad, no dude en contactarnos. ¡Le deseamos un gran día!"
+      ]
+    }
+  }
+}
