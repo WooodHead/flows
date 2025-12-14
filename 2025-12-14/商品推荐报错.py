@@ -9,9 +9,18 @@ async def main():
     一次查询获取product和sku数据
     """
     
-    # 获取参数
     database_id = database_config["id"]
-    category = match["category"]
+    
+    category = None
+    if isinstance(match, dict):
+        category = match.get("category")
+    elif isinstance(match, list):
+        for item in match:
+            if isinstance(item, dict) and item.get("category"):
+                category = item.get("category")
+                break
+    if not category:
+        return []
     
     # ========== SQL查询 - 一次性获取product和sku ==========
     # 先查商品
