@@ -20,6 +20,11 @@ async def main():
     
     thinking = solution_data.get('thinking', '')
     answer = solution_data.get('answer', '')
+    answer_messages = answer.splitlines()
+    processed_messages = [
+        '人工客服' if 'TRANSFER' in message else message
+        for message in answer_messages
+    ]
     
     # 判断是否需要转人工
     if '[TRANSFER]' in answer:
@@ -36,7 +41,7 @@ async def main():
             'flow_name': '一般咨询',
             'flow_type': 'GENERAL_QA',
             'debug_message': f'一般咨询\nThinking:\n{thinking}\n\n回答:\n{answer}',
-            'messages': [answer, "测试2222", "人工客服"],
+            'messages': processed_messages,
             'thinking': thinking,
             'product_data': context.get("data", []),
         }
