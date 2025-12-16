@@ -1,0 +1,93 @@
+{
+  "access_key": "NTMxYzE0ZDFlY2UwNDdjYmFlYzIyOTE0ZTFmMTM2NGQsNTMwNzksMTc1OTk3Njk0OTc0NA==",
+  "sub_agents": [
+    {
+      "name": "商品推荐",
+      "intent": "RECOMMEND",
+      "agent_tools": [],
+      "description": null,
+      "sub_agent_id": "2609b3b3fec44e348cafefbf8778772d"
+    },
+    {
+      "name": "一般咨询",
+      "intent": "GENERAL_QA",
+      "agent_tools": [],
+      "description": null,
+      "sub_agent_id": "911e8b7507484571841b9e11d20c3d0b"
+    },
+    {
+      "name": "促单",
+      "intent": "PROMOTION",
+      "agent_tools": [],
+      "description": "暂无描述",
+      "sub_agent_id": "101d9dc4f55b4e9189b92adcc2aaba6e"
+    },
+    {
+      "name": "邀评",
+      "intent": "INVITE_EVALUATE",
+      "agent_tools": [],
+      "description": "邀评-模板",
+      "sub_agent_id": "df138502faf440e8bac27eb3ca5994a0"
+    }
+  ],
+  "main_flow_id": "d6227fd2d3364a9a86f2f4529a1a481d",
+  "test_flow_id": "57c440acc3ce41c49f09340e750abd68",
+  "workspace_id": "531c14d1ece047cbaec22914e1f1364d",
+  "knowledge_base": {
+    "faq_partition_id": "28353",
+    "common_partition_id": "28201"
+  },
+  "industry_template": {
+    "pet": {
+      "database_id": "ps0eu3cnmqx5ufd"
+    },
+    "auto": {
+      "database_id": "p2mj5qftzz4zw21"
+    },
+    "baby": {
+      "database_id": "plj6b8406bi82xk"
+    },
+    "book": {
+      "database_id": "phi2dgaols2l8nb"
+    },
+    "food": {
+      "database_id": "pqhtt68ixjynwji"
+    },
+    "home": {
+      "database_id": "pjttxn8aqtn5syc"
+    },
+    "beauty": {
+      "database_id": "p5zibevpxzt9aw8"
+    },
+    "health": {
+      "database_id": "pitrvsx2s05ywlq"
+    },
+    "sports": {
+      "database_id": "pctnu2iyu2trlxd"
+    },
+    "culture": {
+      "database_id": "phi2dgaols2l8nb"
+    },
+    "digital": {
+      "database_id": "pjfuajd62nl4cyy"
+    },
+    "fashion": {
+      "database_id": "ppov3rnpxpki57o"
+    },
+    "jewelry": {
+      "database_id": "pfedqmxsyofztb0"
+    }
+  },
+  "default_customer_config": {
+    "general_qa": {
+      "flow_instruction": "一般情况下，回答言简意赅，信息完整，尽量不超过70个字。例外：处理用户关于优惠/活动的咨询时，需要耐心解答，回复控制在200字左右。\n\n金额信息禁止：所有回复中不得出现具体金额数字，如需说明价格相关内容，使用\"具体金额请以订单页面为准\"等引导话术\n\n操作/承诺禁止:\n  - AI客服无操作权限，严禁承诺或回复 帮您/给您 等需要后台操作的动作\n  - 禁止话术：帮您退差价/写备注/申请退换货/帮下单/申请价保/退款/改价/修改订单/补发/送赠品等\n  - 处理方式：先在数据源检索相关政策/流程，按检索结果指引进行回复，没有相关信息时，直接转人工[TRANSFER]"
+    },
+    "user_talks_filters": [
+      "人工",
+      "人工客服",
+      "人工服务",
+      "转人工",
+      "转接人工"
+    ]
+  }
+}
