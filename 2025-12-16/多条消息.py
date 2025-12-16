@@ -21,6 +21,7 @@ async def main():
     thinking = solution_data.get('thinking', '')
     answer = solution_data.get('answer', '')
     answer_messages = answer.splitlines()
+
     processed_messages = [
         '人工客服' if 'TRANSFER' in message else message
         for message in answer_messages
