@@ -15,8 +15,8 @@
     "download_url": "https://installer-bty-ai-prod.oss-cn-hangzhou.aliyuncs.com/customer-service/win/BetterYeahCustomerRobotSetup_v20251204_b433142.zip"
   },
   "qianiu_robot_installer_zip": {
-    "sha256": "0BF08A4F9ADE80856FB24FB5F7950B94D4E1DC63A9579AF0B0C7388A01F8F564",
-    "version": "v20251216_224ed0f",
-    "download_url": "https://installer-bty-ai-prod.oss-cn-hangzhou.aliyuncs.com/customer-service/win/qianniu/BetterYeahCustomerRobotSetup_v20251216_224ed0f.zip"
+    "sha256": "D4A903E6E6D4E8C18378974E9DAD4AD610D15491F924D21B532B0D608D1D5322",
+    "version": "v20251218_2aaf731",
+    "download_url": "https://installer-bty-ai-prod.oss-cn-hangzhou.aliyuncs.com/customer-service/win/qianniu/BetterYeahCustomerRobotSetup_v20251218_2aaf731.zip"
   }
 }
