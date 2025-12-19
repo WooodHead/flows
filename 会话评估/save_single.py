@@ -43,11 +43,19 @@ async def main():
     test_question[round_key] = loop["item"]["客户"]
     test_question_time[round_key] = timestamp_to_iso(time)
     test_answer[round_key] = loop["item"]["客服"]
-    actual_answer[round_key] = chat["data"][0]["text"]
-    actual_answer_time[round_key] = timestamp_to_iso(chat["now_time"])
+
+    # 处理 chat["data"] 为空的情况
+    if chat["data"]:
+        actual_answer[round_key] = chat["data"][0]["text"]
+        actual_answer_time[round_key] = timestamp_to_iso(chat["now_time"])
+        record_id[round_key] = chat["data"][0]["record_id"]
+    else:
+        actual_answer[round_key] = ""
+        actual_answer_time[round_key] = timestamp_to_iso(chat["now_time"]) if "now_time" in chat else ""
+        record_id[round_key] = ""
+
     score[round_key] = evaluate_single["score"]
     reason_for_match[round_key] = evaluate_single["reason"]
-    record_id[round_key] = chat["data"][0]["record_id"]
 
     # 保存回全局变量
     betterAI.store.set("test_question", test_question)
