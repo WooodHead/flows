@@ -152,8 +152,15 @@ def parse_dialogue_data(dialogue_data):
 # 必须保证节点中存在一个main函数
 async def main():
     try:
+        print("\n" + "="*60)
+        print("开始执行促单预处理流程")
+        print("="*60)
+
         # 检查促单功能是否启用
-        if not sop_config.get("promotion_enabled", True):
+        promotion_enabled = sop_config.get("promotion_enabled", True)
+        print(f"\n[main] 促单功能启用状态: {promotion_enabled}")
+        if not promotion_enabled:
+            print("[main] 促单功能未启用,直接返回")
             return {
                 "promotion_scripts": [],
                 "promotion_scripts_count": 0,
@@ -167,26 +174,40 @@ async def main():
 
         # 获取促销话术列表
         promotion_scripts = sop_config.get("promotion_scripts", [])
+        print(f"\n[main] 促销话术总数: {len(promotion_scripts)}")
 
         # 过滤出没有发送过的促销话术
         unsent_scripts = []
 
-        for script in promotion_scripts:
+        for idx, script in enumerate(promotion_scripts):
             script_content = script.get("content", "")
+            print(f"\n[main] 检查第{idx+1}个促销话术:")
+            print(f"  话术内容(前50字): {script_content[:50]}..." if len(script_content) > 50 else f"  话术内容: {script_content}")
+
             if not script_content:
+                print("  话术内容为空,跳过")
                 continue
 
             # 检查该话术是否已经发送过（相似度>=90%）
             is_sent = False
-            for reply in assistant_replies:
+            for reply_idx, reply in enumerate(assistant_replies):
                 similarity = calculate_similarity(reply, script_content)
                 if similarity >= 90:
+                    print(f"  与第{reply_idx+1}条历史回复相似度{similarity:.2f}% >= 90%,判定为已发送")
                     is_sent = True
                     break
 
             # 如果没有发送过，添加到结果列表
             if not is_sent:
+                print("  该话术未发送过,添加到结果列表")
                 unsent_scripts.append(script)
+            else:
+                print("  该话术已发送过,跳过")
+
+        print(f"\n[main] 过滤完成:")
+        print(f"  总话术数: {len(promotion_scripts)}")
+        print(f"  未发送话术数: {len(unsent_scripts)}")
+        print("="*60)
 
         return {
             "promotion_scripts": unsent_scripts,
@@ -194,6 +215,9 @@ async def main():
         }
 
     except Exception as e:
+        print(f"\n[main] 发生异常: {str(e)}")
+        import traceback
+        print(f"[main] 异常堆栈:\n{traceback.format_exc()}")
         return {
             "error": f"处理失败: {str(e)}",
             "promotion_scripts": [],
