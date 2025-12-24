@@ -16,7 +16,7 @@
   },
   "qianiu_robot_installer_zip": {
     "sha256": "F1FEA14E8FFAA04D70FC71A6567191084FB0460BF89A83F6AFFC22774598D9D9",
-    "version": "v20251224_7ee521f",
+    "version": "v20251224",
     "download_url": "https://installer-bty-ai-prod.oss-cn-hangzhou.aliyuncs.com/customer-service/win/qianniu/BetterYeahCustomerRobotSetup_v20251224_7ee521f.zip"
   }
 }
