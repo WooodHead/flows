@@ -1,4 +1,6 @@
 from betteryeah import BetterYeah, Model
+import re
+
 better_yeah = BetterYeah()
 
 async def main():
@@ -42,10 +44,12 @@ async def main():
 
     forbidden_words = customer_config.get("forbidden_words", [])
 
-    # 遍历违禁词列表，将answer中的违禁词替换为对应数量的·
+    # 遍历违禁词列表，将answer中的违禁词替换为对应数量的·(忽略大小写)
     for word in forbidden_words:
-        if word in answer:
-            answer = answer.replace(word, '·' * len(word))
+        if word:
+            # 使用正则表达式进行大小写不敏感的替换
+            pattern = re.compile(re.escape(word), re.IGNORECASE)
+            answer = pattern.sub(lambda m: '·' * len(m.group()), answer)
 
     # 按换行拆分成列表
     answer_messages = answer.splitlines()
