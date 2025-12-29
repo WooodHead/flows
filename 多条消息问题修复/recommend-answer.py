@@ -4,10 +4,11 @@ better_yeah = BetterYeah()
 async def main():
     thinking = summary.get('thinking')
     messages = summary.get('messages', [])
-    answer = '\n'.join(messages) 
-    
+    answer = '\n'.join(messages)
+
     return {
         'messages': messages,
+        'answer': answer,
         'thinking': thinking,
         "flow_name": "商品推荐",
         "flow_type": "RECOMMEND",
