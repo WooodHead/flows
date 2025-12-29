@@ -37,14 +37,6 @@ async def main():
 
     forbidden_words = customer_config.get("forbidden_words", [])
 
-    # 遍历违禁词列表，将answer中的违禁词替换为对应数量的·(忽略大小写)
-    for word in forbidden_words:
-        if word:
-            # 使用正则表达式进行大小写不敏感的替换
-            pattern = re.compile(re.escape(word), re.IGNORECASE)
-            answer = pattern.sub(lambda m: '·' * len(m.group()), answer)
-
-    # 按换行拆分成列表
     messages = business_messages or product_messages or search_messages or human_messages or []
 
     # 替换转人工标记TRANSFER为"人工客服"，并去除违禁词
@@ -65,7 +57,7 @@ async def main():
         "flow_name": "意图识别",
         "flow_type": "INTENT",
 
-        "messages": processed_messages or product_messages,
+        "messages": processed_messages,
         "forward_group_type": business_forward_group_type,
 
         "debug_message": debug_message.strip(),
