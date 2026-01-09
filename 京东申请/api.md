@@ -98,7 +98,7 @@ curl -X POST 'https://dev-customer-servhub-api.betteryeah.com/v1/form_applicatio
 
 
  curl -X GET 'https://dev-customer-servhub-api.betteryeah.com/v1/form_application/jd_trial/current' \
->   -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMDA1OCIsImNsaWVudCI6ImFpX2Zsb3ciLCJleHAiOjM2MDE3NDI4ODI1MDJ9.3eL66kLcg2FHIpQsKQ22Dg-ObvPotAfZ_6SaUtqYeaM'
+  -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMDA1OCIsImNsaWVudCI6ImFpX2Zsb3ciLCJleHAiOjM2MDE3NDI4ODI1MDJ9.3eL66kLcg2FHIpQsKQ22Dg-ObvPotAfZ_6SaUtqYeaM'
 
 
 curl -X GET 'https://dev-customer-servhub-api.betteryeah.com/v1/admin/form_application/jd_trial/list?page=1&page_size=20' \
