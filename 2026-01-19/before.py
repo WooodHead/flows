@@ -1,0 +1,92 @@
+import re
+from betteryeah import BetterYeah
+better_yeah = BetterYeah()
+
+async def main():
+
+    business_messages = business.get("messages", None) if business else None
+    business_debug_message = business.get("debug_message") if business else None
+    business_thinking = business.get("thinking", None) if business else None
+    business_product_data = business.get("product_data") if business else None
+    business_forward_group_type = business.get("forward_group_type", '') if business else None
+
+    business_context = business.get("context", None) if business else None
+
+    product_messages = custom_product.get("messages") if custom_product else (product.get("messages") if product else [])
+    product_debug_message = custom_product.get("debug_message") if custom_product else (product.get("debug_message") if product else None)
+    product_thinking = custom_product.get("thinking") if custom_product else (product.get("thinking") if product else None)
+
+    search_messages = search.get("messages", None) if search else None
+    search_debug_message = search.get("debug_message") if search else None
+    search_thinking = search.get("thinking") if search else None
+
+    event_two_transfer_human_messages = ['人工客服'] if event_two_transfer_human else None
+    situation_transfer_human_messages = ['人工客服'] if situation_transfer_human else None
+
+    event_one = judge.get("event_one") if judge else None
+    event_two = judge.get("event_two") if judge else None
+
+    behavior = business.get("behavior", {}) if business else None
+
+    quality_inspection = judge.get("quality_inspection", {}) if judge else None
+    judge_thinking = judge.get("thinking") if judge else None
+    judge_emotion = judge.get("emotion") if judge else None
+    judge_top_situation = judge.get("top_situation") if judge else None
+
+    debug_message = f"""意图识别:
+一级: {event_one or '无'}
+二级: {event_two or '无'}
+
+意图识别 Thinking:
+{judge_thinking or '无思考过程'}
+"""
+
+    debug_message = f"{debug_message}\n{business_debug_message or product_debug_message or search_debug_message or ''}"
+
+    forbidden_words = customer_config.get("forbidden_words", [])
+
+    messages = business_messages or product_messages or search_messages or event_two_transfer_human_messages or situation_transfer_human_messages or []
+
+    # 替换转人工标记TRANSFER为"人工客服"，并去除违禁词
+    processed_messages = []
+    for message in messages:
+        # 先处理TRANSFER标记
+        processed_msg = '人工客服' if 'TRANSFER' in message else message
+
+        # 遍历违禁词列表，将消息中的违禁词替换为对应数量的·(忽略大小写)
+        for word in forbidden_words:
+            if word:
+                pattern = re.compile(re.escape(word), re.IGNORECASE)
+                processed_msg = pattern.sub(lambda m: '·' * len(m.group()), processed_msg)
+
+        processed_messages.append(processed_msg)
+
+    return {
+        "flow_name": "意图识别",
+        "flow_type": "INTENT",
+
+        "messages": processed_messages,
+        "forward_group_type": business_forward_group_type,
+
+        "debug_message": debug_message.strip(),
+        "event_one": event_one,
+        "event_two": event_two,
+        "event_two_transfer_human": True if event_two_transfer_human else False,
+        "situation_transfer_human": True if situation_transfer_human else False,
+
+        "top_situation":judge_top_situation,
+
+        "behavior": behavior,
+        "intent_thinking": judge_thinking,
+        "quality_inspection": quality_inspection,
+        "general_qa_thinking": business_thinking,
+        "recommend_thinking": product_thinking,
+        "search_thinking": search_thinking,
+        "emotion": judge_emotion,
+        "product_data": business_product_data,
+        "business_context": business_context,
+        "context_infos": [
+            *context_infos,
+            *preprocess["images"],
+        ]
+    }
