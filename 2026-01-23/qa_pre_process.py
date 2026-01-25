@@ -5,30 +5,9 @@ import uuid
 import re
 import asyncio
 from datetime import datetime
-from concurrent.futures import ThreadPoolExecutor
 
 better_yeah = BetterYeah()
 
-DEFAULT_ACTION="""
-    data_source:
-      - "严禁编造信息或使用常识补充"
-
-    决策链:
-      第一步_检查商品问题:
-        - "问题涉及具体商品 + dialogue无链接且product_data为空 → 询问商品链接并跳过第二步"
-        - "问题涉及具体商品 + 有链接但product_data为空 → [TRANSFER]"
-        - "其他情况 → 进入第二步"
-
-      第二步_信息检索:
-        -  在 product_data、faq_knowledge、common_knowledge 中查找"
-	    -  优先使用 product_data，其次使用faq_knowledge，最次使用 common_knowledge的内容回答"
-
-    check_list:
-      - "回复中每条信息是否能在数据源中找到原文？→ 必须"
-      - "是否编造了数据源中不存在的信息？→ 禁止"
-      - “引用 faq_knowledge 中的回答时，不要改变原文 → 必须”
-
-"""
 
 def generate_app_id():
     return re.sub(r'-', '', str(uuid.uuid4()))
@@ -341,154 +320,6 @@ async def fetch_product_and_sku(database_id, item_ids, shop_code=None, platform=
     
     return result
 
-async def fetch_behavior_new(database_id, top_situation):
-    if not top_situation:
-        print("[fetch_behavior] top_situation为空，返回空对象")
-        return {}
-
-    try:
-        sql = f"SELECT situation, action FROM 场景策略 WHERE situation = '{top_situation}' LIMIT 50"
-        res = await better_yeah.database.execute_database(
-            base_id=database_id,
-            executable_sql=sql
-        )
-        result = res.data.data if res.success and hasattr(res.data, 'data') else []
-
-        if result[0]:
-            return result[0]
-
-        return {}
-    except Exception as e:
-        print(f"[fetch_behavior] 异常: {type(e).__name__}: {e}")
-        return {}
-        
-async def fetch_behavior(database_id, top_situations):
-    """
-    根据 top_situations 查询场景策略，结果按 top_situations 顺序排序
-    """
-    
-    if not top_situations:
-        print("[fetch_behavior] top_situations为空，返回空列表")
-        return []
-    
-    try:
-        # 构建 IN 查询条件
-        situations_str = "','".join(s.replace("'", "''") for s in top_situations)
-        sql = f"SELECT situation, action FROM 场景策略 WHERE situation IN ('{situations_str}') LIMIT 50"
-        
-        res = await better_yeah.database.execute_database(
-            base_id=database_id,
-            executable_sql=sql
-        )
-        
-        
-        result = res.data.data if res.success and hasattr(res.data, 'data') else []
-        
-        # 按照 top_situations 的顺序排序
-        situation_order = {s: i for i, s in enumerate(top_situations)}
-        
-        result.sort(key=lambda x: situation_order.get(x.get("situation", ""), len(top_situations)))
-        
-        # 如果 action 为空，使用 DEFAULT_ACTION
-        for item in result:
-            if not item.get("action"):
-                item["action"] = DEFAULT_ACTION
-        
-        return result
-    except Exception as e:
-        print(f"[fetch_behavior] 异常: {type(e).__name__}: {e}")
-        import traceback
-        print(f"[fetch_behavior] 堆栈: {traceback.format_exc()}")
-        return []
-
-
-def fetch_knowledge_base_single(auth, kb_config, partition_id, query_content, msg_index):
-    """单次知识库查询"""
-    if not all([auth.get("user_access_key"), auth.get("user_workspace_id"), partition_id, query_content]):
-        return []
-    
-    body = {
-        "top_k": kb_config.get("top_k", 5),
-        "content": query_content,
-        "partition_id": partition_id,
-        "threshold": kb_config.get("threshold", 0.5),
-        "ranking_strategy": kb_config.get("ranking_strategy", 1),
-        "similarity": kb_config.get("similarity", 0.3),
-        "hit_strategy": [3],
-        "tags": [],
-    }
-
-    headers = {
-        "accept": "application/json",
-        "application-id": generate_app_id(),
-        "content-type": "application/json",
-        "workspace-id": auth["user_workspace_id"],
-        "access-key": auth["user_access_key"],
-    }
-
-    try:
-        response = requests.post(
-            "https://ai-api.betteryeah.com/v1/oapi/dataset/content-match",
-            json=body, headers=headers, timeout=15
-        )
-
-        if response.status_code == 200:
-            result = response.json()
-            match_contents = result.get("data", {}).get("match_contents", [])
-            return match_contents
-    except:
-        pass
-
-    return []
-
-def fetch_knowledge_base_batch(auth, kb_config, partition_id, messages, kb_name):
-    """并行查询多条消息"""
-    start_time = datetime.now()
-    
-    if not messages or not partition_id:
-        return []
-    
-    # 过滤空消息
-    valid_messages = [(idx, msg) for idx, msg in enumerate(messages) if msg and msg.strip()]
-    
-    if not valid_messages:
-        return []
-    
-    # 使用线程池并行查询所有消息
-    all_results = []
-    seen_contents = set()
-    
-    with ThreadPoolExecutor(max_workers=10) as executor:
-        # 提交所有查询任务
-        futures = []
-        for idx, msg in valid_messages:
-            future = executor.submit(
-                fetch_knowledge_base_single,
-                auth, kb_config, partition_id, msg, f"{kb_name}-{idx}"
-            )
-            futures.append((idx, future))
-        
-        # 收集结果
-        for idx, future in futures:
-            try:
-                results = future.result(timeout=20)
-                for item in results:
-                    if isinstance(item, dict):
-                        content = item.get("content", "")
-                        if content and content not in seen_contents:
-                            seen_contents.add(content)
-                            all_results.append(item)
-            except:
-                pass
-    
-    # 按相似度排序并取前10个
-    all_results.sort(key=lambda x: x.get("similarity", 0.0), reverse=True)
-    final_results = all_results[:10]
-    
-    elapsed = (datetime.now() - start_time).total_seconds()
-    print(f"[{kb_name}] {len(valid_messages)}条查询 → {len(final_results)}条结果 | {elapsed:.2f}秒")
-    
-    return final_results
 
 def merge(a, b):
     if a is None and b is None:
@@ -595,7 +426,7 @@ async def execute_tool_subflows(available_tools, start_param, auth=None, product
                 None,
                 execute_custom_tool,
                 tool,
-                start_param.get("dialogue2"),
+                start_param.get("dialogue"),
                 auth,
                 product_data
             )
@@ -603,7 +434,7 @@ async def execute_tool_subflows(available_tools, start_param, auth=None, product
             custom_tools.append(idx)
         else:
             # 默认使用 sub_flow.execute
-            tasks.append(better_yeah.sub_flow.execute(flow_id=flow_id, parameter={"tool": tool, "dialogue": start_param.get("dialogue2"), "product_data": product_data, "database_config": database_config}))
+            tasks.append(better_yeah.sub_flow.execute(flow_id=flow_id, parameter={"tool": tool, "dialogue": start_param.get("dialogue"), "product_data": product_data, "database_config": database_config}))
     
     if not tasks:
         return []
@@ -636,8 +467,6 @@ async def execute_tool_subflows(available_tools, start_param, auth=None, product
 async def main():
     database_id = database_config["id"]
     auth = start.get("auth", {})
-    kb_config = start.get("knowledge_base_config", {})
-    messages = start.get("messages", [])
 
      # 获取工具列表中的shop_code
     tool_list = start.get("tools", [])
@@ -649,16 +478,7 @@ async def main():
             shop_code = tool["shop_code"]
             print(f"[配置] 使用shop_code: {shop_code}")
             break
-    
-    # 检查数组长度
-    if len(messages) >= 2:
-        # 取数组的最后两个元素
-        latest_messages = messages[-2:]
-    else:
-        # 如果元素少于两个，直接返回整个数组
-        latest_messages = messages
-    
-    start_time = datetime.now()
+
     
     # 提取商品ID
     item_ids, id_map = extract_ids_from_dialogue(dialogue, platform)
@@ -666,19 +486,7 @@ async def main():
     print(f"[提取] 商品ID:{item_ids}")
     
     # 并行执行所有查询任务
-    tasks = [
-        fetch_behavior_new(database_id, ''),
-        asyncio.get_event_loop().run_in_executor(
-            None, 
-            fetch_knowledge_base_batch, 
-            auth, kb_config, kb_config.get("common_partition_id", ""), latest_messages, "common"
-        ),
-        asyncio.get_event_loop().run_in_executor(
-            None,
-            fetch_knowledge_base_batch,
-            auth, kb_config, kb_config.get("faq_partition_id", ""), latest_messages, "faq"
-        )
-    ]
+    tasks = []
     
     # 添加商品查询任务
     if item_ids:
@@ -687,18 +495,11 @@ async def main():
     # 执行所有任务
     results = await asyncio.gather(*tasks)
     
-    # 解析结果
-    behavior_result = results[0]
-    print("behavior_result", behavior_result)
-
-    common_result = results[1]
-    faq_result = results[2]
-    
     # 处理商品数据
     product_sku_result = []
     
     if item_ids and len(results) > 3:
-        products_from_ids = results[3]
+        products_from_ids = results[0]
         # 注入 short_link
         print(f"[调试] ID映射: {id_map}")
         for p in products_from_ids:
@@ -710,25 +511,27 @@ async def main():
     
     # 筛选并执行可用工具
     tool_list = start.get("tools", [])
-    behavior_action = behavior_result.get("action", "") if behavior_result else ""
-    available_tools = filter_available_tools(tool_list, behavior_action)
+
+    available_tools = filter_available_tools(tool_list, promotion_strategy)
     print(f"[工具] 可用工具: {[t.get('name') for t in available_tools]}")
     
-    print("product_sku_result", product_sku_result)
     tool_results = await execute_tool_subflows(available_tools, start, auth, product_data=product_sku_result)
-    
-    # 处理知识库结果
-    processed_common = [item.get("content", "") for item in common_result if isinstance(item, dict) and item.get("content")]
-    processed_faq = [{"question": item.get("content", ""), "answer": item.get("extra_info", {})} for item in faq_result if isinstance(item, dict) and (item.get("content") or item.get("extra_info"))]
-    
-    elapsed = (datetime.now() - start_time).total_seconds()
-    print(f"[完成] 商品{len(product_sku_result)}个 | common{len(processed_common)}条 | faq{len(processed_faq)}条 | 总耗时{elapsed:.2f}秒")
+
+    # 处理订单查询结果：去掉sub_orders字段，处理空结果
+    for tool_result in tool_results:
+        if tool_result.get("tool") == "order_query":
+            result_data = tool_result.get("result")
+            if isinstance(result_data, list):
+                for order in result_data:
+                    if isinstance(order, dict) and "sub_orders" in order:
+                        del order["sub_orders"]
+            # 处理空结果情况
+            if not result_data or (isinstance(result_data, list) and len(result_data) == 0):
+                tool_result["result"] = []
+                tool_result["message"] = "未查询到相关订单"
 
     return {
         "data": product_sku_result,
-        "behavior": behavior_result,
-        "common": processed_common,
-        "faq": processed_faq,
         "current_time": get_current_datetime(),
         "tool_results": tool_results
     }
