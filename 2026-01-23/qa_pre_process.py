@@ -465,7 +465,14 @@ async def execute_tool_subflows(available_tools, start_param, auth=None, product
     return tool_results
 
 async def main():
-    database_id = database_config["id"]
+    # 兼容 database_config 是对象或字符串的情况
+    if isinstance(database_config, dict):
+        database_id = database_config.get("id", "")
+    elif isinstance(database_config, str):
+        database_id = database_config
+    else:
+        database_id = str(database_config) if database_config else ""
+
     auth = start.get("auth", {})
 
      # 获取工具列表中的shop_code
